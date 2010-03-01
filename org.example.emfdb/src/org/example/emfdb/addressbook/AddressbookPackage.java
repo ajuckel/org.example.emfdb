@@ -88,13 +88,13 @@ public interface AddressbookPackage extends EPackage {
 	int PERSON__LAST_NAME = 1;
 
 	/**
-	 * The feature id for the '<em><b>Phone Number</b></em>' containment reference.
+	 * The feature id for the '<em><b>Phone Numbers</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSON__PHONE_NUMBER = 2;
+	int PERSON__PHONE_NUMBERS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Person</em>' class.
@@ -125,13 +125,22 @@ public interface AddressbookPackage extends EPackage {
 	int PHONE_NUMBER__NUMBER = 0;
 
 	/**
+	 * The feature id for the '<em><b>Priority</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PHONE_NUMBER__PRIORITY = 1;
+
+	/**
 	 * The number of structural features of the '<em>Phone Number</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PHONE_NUMBER_FEATURE_COUNT = 1;
+	int PHONE_NUMBER_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.example.emfdb.addressbook.impl.AddressBookImpl <em>Address Book</em>}' class.
@@ -195,15 +204,15 @@ public interface AddressbookPackage extends EPackage {
 	EAttribute getPerson_LastName();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.example.emfdb.addressbook.Person#getPhoneNumber <em>Phone Number</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.example.emfdb.addressbook.Person#getPhoneNumbers <em>Phone Numbers</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Phone Number</em>'.
-	 * @see org.example.emfdb.addressbook.Person#getPhoneNumber()
+	 * @return the meta object for the containment reference list '<em>Phone Numbers</em>'.
+	 * @see org.example.emfdb.addressbook.Person#getPhoneNumbers()
 	 * @see #getPerson()
 	 * @generated
 	 */
-	EReference getPerson_PhoneNumber();
+	EReference getPerson_PhoneNumbers();
 
 	/**
 	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.PhoneNumber <em>Phone Number</em>}'.
@@ -225,6 +234,17 @@ public interface AddressbookPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPhoneNumber_Number();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.PhoneNumber#getPriority <em>Priority</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Priority</em>'.
+	 * @see org.example.emfdb.addressbook.PhoneNumber#getPriority()
+	 * @see #getPhoneNumber()
+	 * @generated
+	 */
+	EAttribute getPhoneNumber_Priority();
 
 	/**
 	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.AddressBook <em>Address Book</em>}'.
@@ -296,12 +316,12 @@ public interface AddressbookPackage extends EPackage {
 		EAttribute PERSON__LAST_NAME = eINSTANCE.getPerson_LastName();
 
 		/**
-		 * The meta object literal for the '<em><b>Phone Number</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Phone Numbers</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PERSON__PHONE_NUMBER = eINSTANCE.getPerson_PhoneNumber();
+		EReference PERSON__PHONE_NUMBERS = eINSTANCE.getPerson_PhoneNumbers();
 
 		/**
 		 * The meta object literal for the '{@link org.example.emfdb.addressbook.impl.PhoneNumberImpl <em>Phone Number</em>}' class.
@@ -320,6 +340,14 @@ public interface AddressbookPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PHONE_NUMBER__NUMBER = eINSTANCE.getPhoneNumber_Number();
+
+		/**
+		 * The meta object literal for the '<em><b>Priority</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PHONE_NUMBER__PRIORITY = eINSTANCE.getPhoneNumber_Priority();
 
 		/**
 		 * The meta object literal for the '{@link org.example.emfdb.addressbook.impl.AddressBookImpl <em>Address Book</em>}' class.

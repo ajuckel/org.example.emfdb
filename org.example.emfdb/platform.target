@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.5"?>
+
+<target name="platform">
+<locations>
+<location path="/Users/awj/opt/java/eclipse-3.5/eclipse-cocoa-x64" type="Profile"/>
+<location path="/Users/awj/opt/java/eclipse-3.5/eclipse-delta-pack" type="Profile"/>
+</locations>
+</target>

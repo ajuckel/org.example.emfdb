@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.example.emfdb.addressbook.PhoneNumber#getNumber <em>Number</em>}</li>
+ *   <li>{@link org.example.emfdb.addressbook.PhoneNumber#getPriority <em>Priority</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,5 +51,31 @@ public interface PhoneNumber extends EObject {
 	 * @generated
 	 */
 	void setNumber(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Priority</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Priority</em>' attribute.
+	 * @see #setPriority(int)
+	 * @see org.example.emfdb.addressbook.AddressbookPackage#getPhoneNumber_Priority()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @generated
+	 */
+	int getPriority();
+
+	/**
+	 * Sets the value of the '{@link org.example.emfdb.addressbook.PhoneNumber#getPriority <em>Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Priority</em>' attribute.
+	 * @see #getPriority()
+	 * @generated
+	 */
+	void setPriority(int value);
 
 } // PhoneNumber

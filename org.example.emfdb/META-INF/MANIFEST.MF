@@ -6,13 +6,17 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.example.emfdb.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.emf;bundle-version="2.6.0",
- org.eclipse.emf.common;bundle-version="2.6.0",
- org.eclipse.emf.databinding;bundle-version="1.2.0",
- org.eclipse.emf.ecore;bundle-version="2.6.0",
+ org.eclipse.emf;bundle-version="2.5.0",
+ org.eclipse.emf.common;bundle-version="2.5.0",
+ org.eclipse.emf.databinding;bundle-version="1.1.0",
+ org.eclipse.emf.ecore;bundle-version="2.5.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.5.0",
  org.eclipse.core.databinding.beans;bundle-version="1.2.0",
- org.eclipse.core.databinding.property;bundle-version="1.2.100",
- org.eclipse.jface.databinding;bundle-version="1.4.0"
+ org.eclipse.core.databinding.property;bundle-version="1.2.0",
+ org.eclipse.jface.databinding;bundle-version="1.3.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.example.emfdb,
+ org.example.emfdb.addressbook,
+ org.example.emfdb.addressbook.impl,
+ org.example.emfdb.addressbook.util

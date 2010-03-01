@@ -6,15 +6,19 @@
  */
 package org.example.emfdb.addressbook.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.example.emfdb.addressbook.AddressbookPackage;
 import org.example.emfdb.addressbook.Person;
 import org.example.emfdb.addressbook.PhoneNumber;
@@ -28,7 +32,7 @@ import org.example.emfdb.addressbook.PhoneNumber;
  * <ul>
  *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getFirstName <em>First Name</em>}</li>
  *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getLastName <em>Last Name</em>}</li>
- *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getPhoneNumber <em>Phone Number</em>}</li>
+ *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getPhoneNumbers <em>Phone Numbers</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,14 +80,14 @@ public class PersonImpl extends EObjectImpl implements Person {
 	protected String lastName = LAST_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPhoneNumber() <em>Phone Number</em>}' containment reference.
+	 * The cached value of the '{@link #getPhoneNumbers() <em>Phone Numbers</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPhoneNumber()
+	 * @see #getPhoneNumbers()
 	 * @generated
 	 * @ordered
 	 */
-	protected PhoneNumber phoneNumber;
+	protected EList<PhoneNumber> phoneNumbers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -151,42 +155,11 @@ public class PersonImpl extends EObjectImpl implements Person {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PhoneNumber getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetPhoneNumber(PhoneNumber newPhoneNumber, NotificationChain msgs) {
-		PhoneNumber oldPhoneNumber = phoneNumber;
-		phoneNumber = newPhoneNumber;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AddressbookPackage.PERSON__PHONE_NUMBER, oldPhoneNumber, newPhoneNumber);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<PhoneNumber> getPhoneNumbers() {
+		if (phoneNumbers == null) {
+			phoneNumbers = new EObjectContainmentEList<PhoneNumber>(PhoneNumber.class, this, AddressbookPackage.PERSON__PHONE_NUMBERS);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPhoneNumber(PhoneNumber newPhoneNumber) {
-		if (newPhoneNumber != phoneNumber) {
-			NotificationChain msgs = null;
-			if (phoneNumber != null)
-				msgs = ((InternalEObject)phoneNumber).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AddressbookPackage.PERSON__PHONE_NUMBER, null, msgs);
-			if (newPhoneNumber != null)
-				msgs = ((InternalEObject)newPhoneNumber).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AddressbookPackage.PERSON__PHONE_NUMBER, null, msgs);
-			msgs = basicSetPhoneNumber(newPhoneNumber, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AddressbookPackage.PERSON__PHONE_NUMBER, newPhoneNumber, newPhoneNumber));
+		return phoneNumbers;
 	}
 
 	/**
@@ -197,8 +170,8 @@ public class PersonImpl extends EObjectImpl implements Person {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case AddressbookPackage.PERSON__PHONE_NUMBER:
-				return basicSetPhoneNumber(null, msgs);
+			case AddressbookPackage.PERSON__PHONE_NUMBERS:
+				return ((InternalEList<?>)getPhoneNumbers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -215,8 +188,8 @@ public class PersonImpl extends EObjectImpl implements Person {
 				return getFirstName();
 			case AddressbookPackage.PERSON__LAST_NAME:
 				return getLastName();
-			case AddressbookPackage.PERSON__PHONE_NUMBER:
-				return getPhoneNumber();
+			case AddressbookPackage.PERSON__PHONE_NUMBERS:
+				return getPhoneNumbers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -226,6 +199,7 @@ public class PersonImpl extends EObjectImpl implements Person {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -235,8 +209,9 @@ public class PersonImpl extends EObjectImpl implements Person {
 			case AddressbookPackage.PERSON__LAST_NAME:
 				setLastName((String)newValue);
 				return;
-			case AddressbookPackage.PERSON__PHONE_NUMBER:
-				setPhoneNumber((PhoneNumber)newValue);
+			case AddressbookPackage.PERSON__PHONE_NUMBERS:
+				getPhoneNumbers().clear();
+				getPhoneNumbers().addAll((Collection<? extends PhoneNumber>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -256,8 +231,8 @@ public class PersonImpl extends EObjectImpl implements Person {
 			case AddressbookPackage.PERSON__LAST_NAME:
 				setLastName(LAST_NAME_EDEFAULT);
 				return;
-			case AddressbookPackage.PERSON__PHONE_NUMBER:
-				setPhoneNumber((PhoneNumber)null);
+			case AddressbookPackage.PERSON__PHONE_NUMBERS:
+				getPhoneNumbers().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -275,8 +250,8 @@ public class PersonImpl extends EObjectImpl implements Person {
 				return FIRST_NAME_EDEFAULT == null ? firstName != null : !FIRST_NAME_EDEFAULT.equals(firstName);
 			case AddressbookPackage.PERSON__LAST_NAME:
 				return LAST_NAME_EDEFAULT == null ? lastName != null : !LAST_NAME_EDEFAULT.equals(lastName);
-			case AddressbookPackage.PERSON__PHONE_NUMBER:
-				return phoneNumber != null;
+			case AddressbookPackage.PERSON__PHONE_NUMBERS:
+				return phoneNumbers != null && !phoneNumbers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

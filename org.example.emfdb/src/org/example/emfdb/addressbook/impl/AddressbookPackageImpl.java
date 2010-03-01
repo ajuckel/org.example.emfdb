@@ -145,7 +145,7 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPerson_PhoneNumber() {
+	public EReference getPerson_PhoneNumbers() {
 		return (EReference)personEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -165,6 +165,15 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 */
 	public EAttribute getPhoneNumber_Number() {
 		return (EAttribute)phoneNumberEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPhoneNumber_Priority() {
+		return (EAttribute)phoneNumberEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -216,10 +225,11 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		personEClass = createEClass(PERSON);
 		createEAttribute(personEClass, PERSON__FIRST_NAME);
 		createEAttribute(personEClass, PERSON__LAST_NAME);
-		createEReference(personEClass, PERSON__PHONE_NUMBER);
+		createEReference(personEClass, PERSON__PHONE_NUMBERS);
 
 		phoneNumberEClass = createEClass(PHONE_NUMBER);
 		createEAttribute(phoneNumberEClass, PHONE_NUMBER__NUMBER);
+		createEAttribute(phoneNumberEClass, PHONE_NUMBER__PRIORITY);
 
 		addressBookEClass = createEClass(ADDRESS_BOOK);
 		createEReference(addressBookEClass, ADDRESS_BOOK__PEOPLE);
@@ -261,10 +271,11 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		initEClass(personEClass, Person.class, "Person", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPerson_FirstName(), theXMLTypePackage.getString(), "firstName", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_LastName(), theXMLTypePackage.getString(), "lastName", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPerson_PhoneNumber(), this.getPhoneNumber(), null, "phoneNumber", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPerson_PhoneNumbers(), this.getPhoneNumber(), null, "phoneNumbers", null, 0, -1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(phoneNumberEClass, PhoneNumber.class, "PhoneNumber", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPhoneNumber_Number(), theXMLTypePackage.getString(), "number", null, 0, 1, PhoneNumber.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPhoneNumber_Priority(), theXMLTypePackage.getInt(), "priority", null, 0, 1, PhoneNumber.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(addressBookEClass, AddressBook.class, "AddressBook", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAddressBook_People(), this.getPerson(), null, "people", null, 0, -1, AddressBook.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
