@@ -1,5 +1,8 @@
 package org.example.emfdb;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,7 @@ public class View extends ViewPart {
 	private ObservableListContentProvider obListContentProvider;
 	private boolean usingSwtVirtual = false;
 	private Composite parent = null;
+	private final TemperatureSource[] providers = new TemperatureSource[10];
 
 	/**
 	 * This is a callback that will allow us to create the viewer and initialize
@@ -63,25 +67,15 @@ public class View extends ViewPart {
 				ab.getPeople().clear();
 			}
 		});
-		this.getViewSite().getActionBars().getMenuManager().add(new Action("Remove Number Col") {
-			@Override
-			public void run() {
-				removeNumberColumn(viewer, obListContentProvider.getKnownElements());
-			}
-		});
-		this.getViewSite().getActionBars().getMenuManager().add(new Action("Add Number Col") {
-			@Override
-			public void run() {
-				addNumberColumn(viewer, obListContentProvider.getKnownElements());
-				viewer.refresh();
-			}
-		});
 		for( final int count : new int[] { 100, 1000, 10000 } ) {
 			this.getViewSite().getActionBars().getMenuManager().add(new Action(String.format("%d Non-null", count)) {
 				@Override
 				public void run() {
 					List<Person> people = createPeople(count, true);
 					ab.getPeople().addAll(people);
+					for( TableColumn c : viewer.getTable().getColumns() ) {
+						c.pack();
+					}
 				}
 			});
 			this.getViewSite().getActionBars().getMenuManager().add(new Action(String.format("%d Null numbers", count)) {
@@ -89,9 +83,29 @@ public class View extends ViewPart {
 				public void run() {
 					List<Person> people = createPeople(count, false);
 					ab.getPeople().addAll(people);
+					for( TableColumn c : viewer.getTable().getColumns() ) {
+						c.pack();
+					}
 				}
 			});
 		}
+		this.getViewSite().getActionBars().getMenuManager().add(new Action("Bind Temps") {
+			@Override
+			public void run() {
+				for( int i = 0; i < providers.length; i++ ) {
+					providers[i] = new TemperatureSource();
+					providers[i].start();
+				}
+				for( final Person p : ab.getPeople() ) {
+					int index = (int)(Math.random() * 10);
+					providers[index].addPropertyChangeListener(new PropertyChangeListener() {
+						public void propertyChange(PropertyChangeEvent evt) {
+							p.setTemperature(((Double)evt.getNewValue()).doubleValue());
+						}
+					});
+				}
+			}
+		});
 	}
 
 	/**
@@ -141,21 +155,12 @@ public class View extends ViewPart {
 		tvc.getColumn().addSelectionListener(new GenericPropertyColumnSorter(viewer, map));
 		tvc.getColumn().pack();
 		
-		this.addNumberColumn(viewer, set);
-	}
-	
-	private void addNumberColumn(TableViewer viewer, IObservableSet set) {
-		TableViewerColumn tvc = new TableViewerColumn(viewer, SWT.LEFT);
-		IObservableMap map = EMFProperties.value(AddressbookPackage.Literals.PERSON__PHONE_NUMBERS).observeDetail(set);
-		// AddressbookPackage.Literals.PHONE_NUMBER__NUMBER)).observeDetail(set);
+		map = EMFProperties.value(AddressbookPackage.Literals.PERSON__TEMPERATURE)
+			.observeDetail(set);
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
-		tvc.getColumn().setText("Phone Number");
-		tvc.getColumn().addSelectionListener(new GenericPropertyColumnSorter(viewer, map));
+		tvc.getColumn().setText("Temp");
 		tvc.getColumn().pack();
-	}
-
-	private void removeNumberColumn(TableViewer viewer, IObservableSet set) {
-		
 	}
 	
 	private List<Person> createPeople(int count, boolean includePhoneNumber) {
@@ -170,5 +175,54 @@ public class View extends ViewPart {
 			people.add(p);
 		}
 		return people;
+	}
+	
+	public class TemperatureSource extends Thread {
+		private final PropertyChangeSupport pcs;
+		private double temperature;
+		
+		public TemperatureSource() {
+			this.pcs = new PropertyChangeSupport(this);
+		}
+
+		@Override
+		public void run() {
+			while(true) {
+				this.setTemperature(Math.random() * 100.0d);
+				try {
+					Thread.sleep((long)(Math.random() * 10.0d + 10.0d));
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}
+		}
+
+		public double getTemperature() {
+			return temperature;
+		}
+		
+		public void setTemperature(double temperature) {
+			double oldValue = this.temperature;
+			this.temperature = temperature;
+			this.pcs.firePropertyChange("temperature", Double.valueOf(oldValue), Double.valueOf(temperature));
+		}
+
+		public void addPropertyChangeListener(PropertyChangeListener listener) {
+			pcs.addPropertyChangeListener(listener);
+		}
+
+		public void removePropertyChangeListener(PropertyChangeListener listener) {
+			pcs.removePropertyChangeListener(listener);
+		}
+
+		public void addPropertyChangeListener(String propertyName,
+				PropertyChangeListener listener) {
+			pcs.addPropertyChangeListener(propertyName, listener);
+		}
+
+		public void removePropertyChangeListener(String propertyName,
+				PropertyChangeListener listener) {
+			pcs.removePropertyChangeListener(propertyName, listener);
+		}
 	}
 }

@@ -20,6 +20,7 @@ import org.example.emfdb.addressbook.AddressbookFactory;
 import org.example.emfdb.addressbook.AddressbookPackage;
 import org.example.emfdb.addressbook.Person;
 import org.example.emfdb.addressbook.PhoneNumber;
+import org.example.emfdb.addressbook.Score;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,6 +49,13 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 * @generated
 	 */
 	private EClass addressBookEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass scoreEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -154,6 +162,24 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPerson_Scores() {
+		return (EReference)personEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPerson_Temperature() {
+		return (EAttribute)personEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPhoneNumber() {
 		return phoneNumberEClass;
 	}
@@ -199,6 +225,51 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getScore() {
+		return scoreEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScore_I() {
+		return (EAttribute)scoreEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScore_L() {
+		return (EAttribute)scoreEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScore_F() {
+		return (EAttribute)scoreEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScore_D() {
+		return (EAttribute)scoreEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AddressbookFactory getAddressbookFactory() {
 		return (AddressbookFactory)getEFactoryInstance();
 	}
@@ -226,6 +297,8 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		createEAttribute(personEClass, PERSON__FIRST_NAME);
 		createEAttribute(personEClass, PERSON__LAST_NAME);
 		createEReference(personEClass, PERSON__PHONE_NUMBERS);
+		createEReference(personEClass, PERSON__SCORES);
+		createEAttribute(personEClass, PERSON__TEMPERATURE);
 
 		phoneNumberEClass = createEClass(PHONE_NUMBER);
 		createEAttribute(phoneNumberEClass, PHONE_NUMBER__NUMBER);
@@ -233,6 +306,12 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 
 		addressBookEClass = createEClass(ADDRESS_BOOK);
 		createEReference(addressBookEClass, ADDRESS_BOOK__PEOPLE);
+
+		scoreEClass = createEClass(SCORE);
+		createEAttribute(scoreEClass, SCORE__I);
+		createEAttribute(scoreEClass, SCORE__L);
+		createEAttribute(scoreEClass, SCORE__F);
+		createEAttribute(scoreEClass, SCORE__D);
 	}
 
 	/**
@@ -272,6 +351,8 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		initEAttribute(getPerson_FirstName(), theXMLTypePackage.getString(), "firstName", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_LastName(), theXMLTypePackage.getString(), "lastName", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPerson_PhoneNumbers(), this.getPhoneNumber(), null, "phoneNumbers", null, 0, -1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPerson_Scores(), this.getScore(), null, "scores", null, 0, -1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPerson_Temperature(), theXMLTypePackage.getDouble(), "temperature", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(phoneNumberEClass, PhoneNumber.class, "PhoneNumber", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPhoneNumber_Number(), theXMLTypePackage.getString(), "number", null, 0, 1, PhoneNumber.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -279,6 +360,12 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 
 		initEClass(addressBookEClass, AddressBook.class, "AddressBook", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAddressBook_People(), this.getPerson(), null, "people", null, 0, -1, AddressBook.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(scoreEClass, Score.class, "Score", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getScore_I(), theXMLTypePackage.getInt(), "i", null, 0, 1, Score.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScore_L(), theXMLTypePackage.getLong(), "l", null, 0, 1, Score.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScore_F(), theXMLTypePackage.getFloat(), "f", null, 0, 1, Score.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScore_D(), theXMLTypePackage.getDouble(), "d", null, 0, 1, Score.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

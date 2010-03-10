@@ -53,6 +53,17 @@ public interface AddressbookFactory extends EFactory {
 	AddressBook createAddressBook();
 
 	/**
+	 * Returns a new object of class '<em>Score</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Score</em>'.
+	 * @generated
+	 */
+	Score createScore();
+	
+	Score createScore(int i, long l, float f, double d);
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

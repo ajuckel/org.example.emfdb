@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.example.emfdb.addressbook.Person#getFirstName <em>First Name</em>}</li>
  *   <li>{@link org.example.emfdb.addressbook.Person#getLastName <em>Last Name</em>}</li>
  *   <li>{@link org.example.emfdb.addressbook.Person#getPhoneNumbers <em>Phone Numbers</em>}</li>
+ *   <li>{@link org.example.emfdb.addressbook.Person#getScores <em>Scores</em>}</li>
+ *   <li>{@link org.example.emfdb.addressbook.Person#getTemperature <em>Temperature</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,5 +97,47 @@ public interface Person extends EObject {
 	 * @generated
 	 */
 	EList<PhoneNumber> getPhoneNumbers();
+
+	/**
+	 * Returns the value of the '<em><b>Scores</b></em>' reference list.
+	 * The list contents are of type {@link org.example.emfdb.addressbook.Score}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Scores</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Scores</em>' reference list.
+	 * @see org.example.emfdb.addressbook.AddressbookPackage#getPerson_Scores()
+	 * @model
+	 * @generated
+	 */
+	EList<Score> getScores();
+
+	/**
+	 * Returns the value of the '<em><b>Temperature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Temperature</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Temperature</em>' attribute.
+	 * @see #setTemperature(double)
+	 * @see org.example.emfdb.addressbook.AddressbookPackage#getPerson_Temperature()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
+	 * @generated
+	 */
+	double getTemperature();
+
+	/**
+	 * Sets the value of the '{@link org.example.emfdb.addressbook.Person#getTemperature <em>Temperature</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Temperature</em>' attribute.
+	 * @see #getTemperature()
+	 * @generated
+	 */
+	void setTemperature(double value);
 
 } // Person

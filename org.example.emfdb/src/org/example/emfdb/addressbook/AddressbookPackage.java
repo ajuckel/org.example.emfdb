@@ -97,13 +97,31 @@ public interface AddressbookPackage extends EPackage {
 	int PERSON__PHONE_NUMBERS = 2;
 
 	/**
+	 * The feature id for the '<em><b>Scores</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERSON__SCORES = 3;
+
+	/**
+	 * The feature id for the '<em><b>Temperature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERSON__TEMPERATURE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Person</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSON_FEATURE_COUNT = 3;
+	int PERSON_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.example.emfdb.addressbook.impl.PhoneNumberImpl <em>Phone Number</em>}' class.
@@ -172,6 +190,62 @@ public interface AddressbookPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.example.emfdb.addressbook.impl.ScoreImpl <em>Score</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.example.emfdb.addressbook.impl.ScoreImpl
+	 * @see org.example.emfdb.addressbook.impl.AddressbookPackageImpl#getScore()
+	 * @generated
+	 */
+	int SCORE = 3;
+
+	/**
+	 * The feature id for the '<em><b>I</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCORE__I = 0;
+
+	/**
+	 * The feature id for the '<em><b>L</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCORE__L = 1;
+
+	/**
+	 * The feature id for the '<em><b>F</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCORE__F = 2;
+
+	/**
+	 * The feature id for the '<em><b>D</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCORE__D = 3;
+
+	/**
+	 * The number of structural features of the '<em>Score</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCORE_FEATURE_COUNT = 4;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.Person <em>Person</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -213,6 +287,28 @@ public interface AddressbookPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPerson_PhoneNumbers();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.example.emfdb.addressbook.Person#getScores <em>Scores</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Scores</em>'.
+	 * @see org.example.emfdb.addressbook.Person#getScores()
+	 * @see #getPerson()
+	 * @generated
+	 */
+	EReference getPerson_Scores();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Person#getTemperature <em>Temperature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Temperature</em>'.
+	 * @see org.example.emfdb.addressbook.Person#getTemperature()
+	 * @see #getPerson()
+	 * @generated
+	 */
+	EAttribute getPerson_Temperature();
 
 	/**
 	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.PhoneNumber <em>Phone Number</em>}'.
@@ -266,6 +362,60 @@ public interface AddressbookPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAddressBook_People();
+
+	/**
+	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.Score <em>Score</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Score</em>'.
+	 * @see org.example.emfdb.addressbook.Score
+	 * @generated
+	 */
+	EClass getScore();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Score#getI <em>I</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>I</em>'.
+	 * @see org.example.emfdb.addressbook.Score#getI()
+	 * @see #getScore()
+	 * @generated
+	 */
+	EAttribute getScore_I();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Score#getL <em>L</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>L</em>'.
+	 * @see org.example.emfdb.addressbook.Score#getL()
+	 * @see #getScore()
+	 * @generated
+	 */
+	EAttribute getScore_L();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Score#getF <em>F</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>F</em>'.
+	 * @see org.example.emfdb.addressbook.Score#getF()
+	 * @see #getScore()
+	 * @generated
+	 */
+	EAttribute getScore_F();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Score#getD <em>D</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>D</em>'.
+	 * @see org.example.emfdb.addressbook.Score#getD()
+	 * @see #getScore()
+	 * @generated
+	 */
+	EAttribute getScore_D();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -324,6 +474,22 @@ public interface AddressbookPackage extends EPackage {
 		EReference PERSON__PHONE_NUMBERS = eINSTANCE.getPerson_PhoneNumbers();
 
 		/**
+		 * The meta object literal for the '<em><b>Scores</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PERSON__SCORES = eINSTANCE.getPerson_Scores();
+
+		/**
+		 * The meta object literal for the '<em><b>Temperature</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERSON__TEMPERATURE = eINSTANCE.getPerson_Temperature();
+
+		/**
 		 * The meta object literal for the '{@link org.example.emfdb.addressbook.impl.PhoneNumberImpl <em>Phone Number</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -366,6 +532,48 @@ public interface AddressbookPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ADDRESS_BOOK__PEOPLE = eINSTANCE.getAddressBook_People();
+
+		/**
+		 * The meta object literal for the '{@link org.example.emfdb.addressbook.impl.ScoreImpl <em>Score</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.example.emfdb.addressbook.impl.ScoreImpl
+		 * @see org.example.emfdb.addressbook.impl.AddressbookPackageImpl#getScore()
+		 * @generated
+		 */
+		EClass SCORE = eINSTANCE.getScore();
+
+		/**
+		 * The meta object literal for the '<em><b>I</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCORE__I = eINSTANCE.getScore_I();
+
+		/**
+		 * The meta object literal for the '<em><b>L</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCORE__L = eINSTANCE.getScore_L();
+
+		/**
+		 * The meta object literal for the '<em><b>F</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCORE__F = eINSTANCE.getScore_F();
+
+		/**
+		 * The meta object literal for the '<em><b>D</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCORE__D = eINSTANCE.getScore_D();
 
 	}
 
