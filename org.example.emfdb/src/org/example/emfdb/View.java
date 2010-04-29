@@ -6,6 +6,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.observable.list.WritableList;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.set.IObservableSet;
 import org.eclipse.emf.databinding.EMFProperties;
@@ -24,11 +26,14 @@ import org.example.emfdb.addressbook.AddressbookFactory;
 import org.example.emfdb.addressbook.AddressbookPackage;
 import org.example.emfdb.addressbook.Person;
 import org.example.emfdb.addressbook.PhoneNumber;
+import org.example.emfdb.beans.Car;
+import org.example.emfdb.beans.Truck;
 
 public class View extends ViewPart {
 	public static final String ID = "org.example.emfdb.view";
 
-	private final AddressBook ab = AddressbookFactory.eINSTANCE.createAddressBook();
+	private final AddressBook ab = AddressbookFactory.eINSTANCE
+			.createAddressBook();
 
 	private TableViewer viewer;
 	private ObservableListContentProvider obListContentProvider;
@@ -45,67 +50,88 @@ public class View extends ViewPart {
 
 		obListContentProvider = new ObservableListContentProvider();
 		viewer = initViewer();
-		
-		this.getViewSite().getActionBars().getMenuManager().add(new Action("Toggle Virtual", IAction.AS_CHECK_BOX) {
-			
-			@Override
-			public void run() {
-				usingSwtVirtual = ! usingSwtVirtual;
-				this.setChecked(usingSwtVirtual);
-				
-				disposeViewer(viewer);
-				ab.getPeople().clear();
-				obListContentProvider = new ObservableListContentProvider();
-				viewer = initViewer();
-				viewer.getControl().setVisible(true);
-				viewer.getControl().update();
-			}
-		});
-		this.getViewSite().getActionBars().getMenuManager().add(new Action("Clear List") {
-			@Override
-			public void run() {
-				ab.getPeople().clear();
-			}
-		});
-		for( final int count : new int[] { 100, 1000, 10000 } ) {
-			this.getViewSite().getActionBars().getMenuManager().add(new Action(String.format("%d Non-null", count)) {
-				@Override
-				public void run() {
-					List<Person> people = createPeople(count, true);
-					ab.getPeople().addAll(people);
-					for( TableColumn c : viewer.getTable().getColumns() ) {
-						c.pack();
+
+		this.getViewSite().getActionBars().getMenuManager().add(
+				new Action("Toggle Virtual", IAction.AS_CHECK_BOX) {
+
+					@Override
+					public void run() {
+						usingSwtVirtual = !usingSwtVirtual;
+						this.setChecked(usingSwtVirtual);
+
+						disposeViewer(viewer);
+						ab.getPeople().clear();
+						obListContentProvider = new ObservableListContentProvider();
+						viewer = initViewer();
+						viewer.getControl().setVisible(true);
+						viewer.getControl().update();
 					}
-				}
-			});
-			this.getViewSite().getActionBars().getMenuManager().add(new Action(String.format("%d Null numbers", count)) {
-				@Override
-				public void run() {
-					List<Person> people = createPeople(count, false);
-					ab.getPeople().addAll(people);
-					for( TableColumn c : viewer.getTable().getColumns() ) {
-						c.pack();
+				});
+		this.getViewSite().getActionBars().getMenuManager().add(
+				new Action("Clear List") {
+					@Override
+					public void run() {
+						ab.getPeople().clear();
 					}
-				}
-			});
-		}
-		this.getViewSite().getActionBars().getMenuManager().add(new Action("Bind Temps") {
-			@Override
-			public void run() {
-				for( int i = 0; i < providers.length; i++ ) {
-					providers[i] = new TemperatureSource();
-					providers[i].start();
-				}
-				for( final Person p : ab.getPeople() ) {
-					int index = (int)(Math.random() * 10);
-					providers[index].addPropertyChangeListener(new PropertyChangeListener() {
-						public void propertyChange(PropertyChangeEvent evt) {
-							p.setTemperature(((Double)evt.getNewValue()).doubleValue());
+				});
+
+		for (final int count : new int[] { 100, 1000, 10000 }) {
+			this.getViewSite().getActionBars().getMenuManager().add(
+					new Action(String.format("%d EObjects Non-null", count)) {
+						@Override
+						public void run() {
+							List<Person> people = createPeople(count, true);
+							ab.getPeople().addAll(people);
+							for (TableColumn c : viewer.getTable().getColumns()) {
+								c.pack();
+							}
 						}
 					});
-				}
-			}
-		});
+			this.getViewSite().getActionBars().getMenuManager().add(
+					new Action(String.format("%d EObjects Null numbers", count)) {
+						@Override
+						public void run() {
+							List<Person> people = createPeople(count, false);
+							ab.getPeople().addAll(people);
+							for (TableColumn c : viewer.getTable().getColumns()) {
+								c.pack();
+							}
+						}
+					});
+			this.getViewSite().getActionBars().getMenuManager().add(
+					new Action(String.format("%d Beans", count)) {
+						@Override
+						public void run() {
+							createCars(count);
+							for(TableColumn c : viewer.getTable().getColumns()) {
+								c.pack();
+							}
+						}
+					});
+		}
+
+		this.getViewSite().getActionBars().getMenuManager().add(
+				new Action("Bind Temps") {
+					@Override
+					public void run() {
+						for (int i = 0; i < providers.length; i++) {
+							providers[i] = new TemperatureSource();
+							providers[i].start();
+						}
+						for (final Person p : ab.getPeople()) {
+							int index = (int) (Math.random() * 10);
+							providers[index]
+									.addPropertyChangeListener(new PropertyChangeListener() {
+										public void propertyChange(
+												PropertyChangeEvent evt) {
+											p.setTemperature(((Double) evt
+													.getNewValue())
+													.doubleValue());
+										}
+									});
+						}
+					}
+				});
 	}
 
 	/**
@@ -117,59 +143,108 @@ public class View extends ViewPart {
 
 	private TableViewer initViewer() {
 		int style = SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL;
-		if( this.usingSwtVirtual ) style |= SWT.VIRTUAL;
+		if (this.usingSwtVirtual)
+			style |= SWT.VIRTUAL;
 		viewer = new TableViewer(this.parent, style);
 		viewer.setContentProvider(obListContentProvider);
-		createColumns(viewer, obListContentProvider.getKnownElements());
-		
-		viewer.setInput(EMFProperties.list(AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE)
-				.observe(ab));
 		viewer.getTable().setHeaderVisible(true);
 		viewer.getTable().setLinesVisible(true);
 
 		return viewer;
 	}
-	
+
 	private void disposeViewer(TableViewer viewer) {
-		for( TableColumn col : viewer.getTable().getColumns() ) {
+		for (TableColumn col : viewer.getTable().getColumns()) {
 			col.dispose();
 		}
 		viewer.setInput(null);
 		viewer.getControl().dispose();
 	}
 
-	private void createColumns(TableViewer viewer, IObservableSet set) {
-		IObservableMap map = EMFProperties.value(AddressbookPackage.Literals.PERSON__FIRST_NAME)
-			.observeDetail(set); 
+	private void createEMFColumns(TableViewer viewer, IObservableSet set) {
+		clearColumns(viewer);
+		IObservableMap map = EMFProperties.value(
+				AddressbookPackage.Literals.PERSON__FIRST_NAME).observeDetail(
+				set);
 		TableViewerColumn tvc = new TableViewerColumn(viewer, SWT.LEFT);
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
 		tvc.getColumn().setText("First Name");
-		tvc.getColumn().addSelectionListener(new GenericPropertyColumnSorter(viewer, map));
+		tvc.getColumn().addSelectionListener(
+				new GenericPropertyColumnSorter(viewer, map));
 		tvc.getColumn().pack();
-		
-		map = EMFProperties.value(AddressbookPackage.Literals.PERSON__LAST_NAME)
-			.observeDetail(set);
+
+		map = EMFProperties
+				.value(AddressbookPackage.Literals.PERSON__LAST_NAME)
+				.observeDetail(set);
 		tvc = new TableViewerColumn(viewer, SWT.LEFT);
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
 		tvc.getColumn().setText("Last Name");
-		tvc.getColumn().addSelectionListener(new GenericPropertyColumnSorter(viewer, map));
+		tvc.getColumn().addSelectionListener(
+				new GenericPropertyColumnSorter(viewer, map));
 		tvc.getColumn().pack();
-		
-		map = EMFProperties.value(AddressbookPackage.Literals.PERSON__TEMPERATURE)
-			.observeDetail(set);
+
+		map = EMFProperties.value(
+				AddressbookPackage.Literals.PERSON__TEMPERATURE).observeDetail(
+				set);
 		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
-		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
+		tvc.setLabelProvider(new DelayedLabelProvider(map, 2000));
 		tvc.getColumn().setText("Temp");
 		tvc.getColumn().pack();
 	}
-	
+
+	private void createJavaBeanColumns(TableViewer viewer, IObservableSet set) {
+		clearColumns(viewer);
+		IObservableMap map = BeanProperties.value(Car.class, "make", String.class)
+			.observeDetail(set);
+		TableViewerColumn tvc = new TableViewerColumn(viewer, SWT.LEFT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
+		tvc.getColumn().setText("Make");
+		tvc.getColumn().addSelectionListener(
+				new GenericPropertyColumnSorter(viewer, map));
+		tvc.getColumn().pack();
+
+		map = BeanProperties.value(Car.class, "model", String.class)
+				.observeDetail(set);
+		tvc = new TableViewerColumn(viewer, SWT.LEFT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
+		tvc.getColumn().setText("Model");
+		tvc.getColumn().addSelectionListener(
+				new GenericPropertyColumnSorter(viewer, map));
+		tvc.getColumn().pack();
+
+		map = BeanProperties.value(Car.class, "doors", int.class) 
+			.observeDetail(set);
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new DelayedLabelProvider(map, 2000));
+		tvc.getColumn().setText("Doors");
+		tvc.getColumn().pack();
+
+		map = BeanProperties.value(Truck.class, "loadCapacity", int.class) 
+			.observeDetail(set);
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new DelayedLabelProvider(map, 2000));
+		tvc.getColumn().setText("Load Capacity");
+		tvc.getColumn().pack();
+	}
+
+	private void clearColumns(TableViewer viewer) {
+		for(int i = 0; i < viewer.getTable().getColumnCount(); i++ ) {
+			viewer.getTable().remove(i);
+		}
+	}
+
 	private List<Person> createPeople(int count, boolean includePhoneNumber) {
+		createEMFColumns(viewer, obListContentProvider.getKnownElements());
+		viewer.setInput(EMFProperties.list(
+				AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE).observe(ab));
+		
 		List<Person> people = new ArrayList<Person>(count);
-		for( int i = 0; i < count; i++ ) {
+		for (int i = 0; i < count; i++) {
 			Person p = AddressbookFactory.eINSTANCE.createPerson();
 			p.setFirstName(Double.toString(Math.random()));
 			p.setLastName(Double.toString(Math.random()));
-			PhoneNumber number = AddressbookFactory.eINSTANCE.createPhoneNumber();
+			PhoneNumber number = AddressbookFactory.eINSTANCE
+					.createPhoneNumber();
 			number.setNumber(Double.toString(Math.random()));
 			p.getPhoneNumbers().add(number);
 			people.add(p);
@@ -177,20 +252,34 @@ public class View extends ViewPart {
 		return people;
 	}
 	
+	private List<Car> createCars(int count) {
+		createJavaBeanColumns(viewer, obListContentProvider.getKnownElements());
+		List<Car> cars = new ArrayList<Car>(count);
+		for( int i = 0; i < count; i++ ) {
+			if( i % 10 == 0 ) {
+				cars.add(new Truck());
+			} else {
+				cars.add(new Car());
+			}
+		}
+		viewer.setInput(new WritableList(cars, Car.class));
+		return cars;
+	}
+
 	public class TemperatureSource extends Thread {
 		private final PropertyChangeSupport pcs;
 		private double temperature;
-		
+
 		public TemperatureSource() {
 			this.pcs = new PropertyChangeSupport(this);
 		}
 
 		@Override
 		public void run() {
-			while(true) {
+			while (true) {
 				this.setTemperature(Math.random() * 100.0d);
 				try {
-					Thread.sleep((long)(Math.random() * 10.0d + 10.0d));
+					Thread.sleep((long) (Math.random() * 10.0d + 10.0d));
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 				}
@@ -200,11 +289,12 @@ public class View extends ViewPart {
 		public double getTemperature() {
 			return temperature;
 		}
-		
+
 		public void setTemperature(double temperature) {
 			double oldValue = this.temperature;
 			this.temperature = temperature;
-			this.pcs.firePropertyChange("temperature", Double.valueOf(oldValue), Double.valueOf(temperature));
+			this.pcs.firePropertyChange("temperature",
+					Double.valueOf(oldValue), Double.valueOf(temperature));
 		}
 
 		public void addPropertyChangeListener(PropertyChangeListener listener) {
