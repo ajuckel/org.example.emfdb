@@ -152,5 +152,15 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
 		}
 		return super.eIsSet(featureID);
 	}
+	
+	@SuppressWarnings("serial")
+	public void useIdentityEqualsList() {
+		people = new EObjectContainmentEList<Person>(Person.class, this, AddressbookPackage.ADDRESS_BOOK__PEOPLE) {
+			@Override
+			public boolean equals(Object object) {
+				return this == object;
+			}
+		};
+	}
 
 } //AddressBookImpl
