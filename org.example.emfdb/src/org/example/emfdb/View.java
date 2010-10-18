@@ -15,10 +15,25 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.CellNavigationStrategy;
+import org.eclipse.jface.viewers.ColumnViewer;
+import org.eclipse.jface.viewers.ColumnViewerEditor;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationListener;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
+import org.eclipse.jface.viewers.ColumnViewerEditorDeactivationEvent;
+import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.FocusCellOwnerDrawHighlighter;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TableViewerEditor;
+import org.eclipse.jface.viewers.TableViewerFocusCellManager;
+import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
 import org.example.emfdb.addressbook.AddressBook;
@@ -142,7 +157,7 @@ public class View extends ViewPart {
 	}
 
 	private TableViewer initViewer() {
-		int style = SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL;
+		int style = SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION;
 		if (this.usingSwtVirtual)
 			style |= SWT.VIRTUAL;
 		viewer = new TableViewer(this.parent, style);
@@ -150,7 +165,67 @@ public class View extends ViewPart {
 		viewer.getTable().setHeaderVisible(true);
 		viewer.getTable().setLinesVisible(true);
 
+		setupNavigation(viewer);
+		
 		return viewer;
+	}
+
+	private void setupNavigation(final TableViewer v) {
+		CellNavigationStrategy naviStrat = new CellNavigationStrategy() {
+
+			public ViewerCell findSelectedCell(ColumnViewer viewer,
+					ViewerCell currentSelectedCell, Event event) {
+				ViewerCell cell = super.findSelectedCell(viewer, currentSelectedCell, event);
+				
+				if( cell != null ) {
+					v.getTable().showColumn(v.getTable().getColumn(cell.getColumnIndex()));
+				}
+				
+				return cell;
+			}
+			
+		};
+		
+		TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(v,new FocusCellOwnerDrawHighlighter(v),naviStrat);
+		
+		ColumnViewerEditorActivationStrategy actSupport = new ColumnViewerEditorActivationStrategy(v) {
+			protected boolean isEditorActivationEvent(
+					ColumnViewerEditorActivationEvent event) {
+				return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL
+						|| event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION
+						|| (event.eventType == ColumnViewerEditorActivationEvent.KEY_PRESSED && event.keyCode == SWT.CR)
+						|| event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC;
+			}
+		};
+		
+		TableViewerEditor.create(v, focusCellManager, actSupport, ColumnViewerEditor.TABBING_HORIZONTAL
+				| ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
+				| ColumnViewerEditor.TABBING_VERTICAL | ColumnViewerEditor.KEYBOARD_ACTIVATION);
+		
+		v.getColumnViewerEditor().addEditorActivationListener(new ColumnViewerEditorActivationListener() {
+
+			public void afterEditorActivated(
+					ColumnViewerEditorActivationEvent event) {
+				
+			}
+
+			public void afterEditorDeactivated(
+					ColumnViewerEditorDeactivationEvent event) {
+				
+			}
+
+			public void beforeEditorActivated(
+					ColumnViewerEditorActivationEvent event) {
+				ViewerCell cell = (ViewerCell) event.getSource();
+				v.getTable().showColumn(v.getTable().getColumn(cell.getColumnIndex()));
+			}
+
+			public void beforeEditorDeactivated(
+					ColumnViewerEditorDeactivationEvent event) {
+				
+			}
+			
+		});
 	}
 
 	private void disposeViewer(TableViewer viewer) {
@@ -161,7 +236,41 @@ public class View extends ViewPart {
 		viewer.getControl().dispose();
 	}
 
-	private void createEMFColumns(TableViewer viewer, IObservableSet set) {
+	private class MapEditingSupport extends EditingSupport {
+		private CellEditor editor;
+		private IObservableMap map;
+		
+		public MapEditingSupport(ColumnViewer viewer, IObservableMap map) {
+			this(viewer, map, new TextCellEditor((Composite)viewer.getControl()));
+		}
+
+		public MapEditingSupport(ColumnViewer viewer, IObservableMap map, CellEditor editor) {
+			super(viewer);
+			this.editor = editor;
+			this.map = map;
+		}
+
+		@Override
+		protected CellEditor getCellEditor(Object element) {
+			return editor;
+		}
+
+		@Override
+		protected boolean canEdit(Object element) {
+			return true;
+		}
+
+		@Override
+		protected Object getValue(Object element) {
+			return map.get(element);
+		}
+
+		@Override
+		protected void setValue(Object element, Object value) {
+		}
+		
+	}
+	private void createEMFColumns(final TableViewer viewer, final IObservableSet set) {
 		clearColumns(viewer);
 		IObservableMap map = EMFProperties.value(
 				AddressbookPackage.Literals.PERSON__FIRST_NAME).observeDetail(
@@ -171,6 +280,7 @@ public class View extends ViewPart {
 		tvc.getColumn().setText("First Name");
 		tvc.getColumn().addSelectionListener(
 				new GenericPropertyColumnSorter(viewer, map));
+		tvc.setEditingSupport(new MapEditingSupport(viewer, map));
 		tvc.getColumn().pack();
 
 		map = EMFProperties
@@ -181,6 +291,7 @@ public class View extends ViewPart {
 		tvc.getColumn().setText("Last Name");
 		tvc.getColumn().addSelectionListener(
 				new GenericPropertyColumnSorter(viewer, map));
+		tvc.setEditingSupport(new MapEditingSupport(viewer, map));
 		tvc.getColumn().pack();
 
 		map = EMFProperties.value(
@@ -194,7 +305,7 @@ public class View extends ViewPart {
 
 	private void createJavaBeanColumns(TableViewer viewer, IObservableSet set) {
 		clearColumns(viewer);
-		IObservableMap map = BeanProperties.value(Car.class, "make", String.class)
+		IObservableMap map = BeanProperties.value("make", String.class)
 			.observeDetail(set);
 		TableViewerColumn tvc = new TableViewerColumn(viewer, SWT.LEFT);
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
@@ -203,7 +314,7 @@ public class View extends ViewPart {
 				new GenericPropertyColumnSorter(viewer, map));
 		tvc.getColumn().pack();
 
-		map = BeanProperties.value(Car.class, "model", String.class)
+		map = BeanProperties.value("model", String.class)
 				.observeDetail(set);
 		tvc = new TableViewerColumn(viewer, SWT.LEFT);
 		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
@@ -212,14 +323,14 @@ public class View extends ViewPart {
 				new GenericPropertyColumnSorter(viewer, map));
 		tvc.getColumn().pack();
 
-		map = BeanProperties.value(Car.class, "doors", int.class) 
+		map = BeanProperties.value("doors", int.class) 
 			.observeDetail(set);
 		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
 		tvc.setLabelProvider(new DelayedLabelProvider(map, 2000));
 		tvc.getColumn().setText("Doors");
 		tvc.getColumn().pack();
 
-		map = BeanProperties.value(Truck.class, "loadCapacity", int.class) 
+		map = BeanProperties.value("loadCapacity", int.class) 
 			.observeDetail(set);
 		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
 		tvc.setLabelProvider(new DelayedLabelProvider(map, 2000));
