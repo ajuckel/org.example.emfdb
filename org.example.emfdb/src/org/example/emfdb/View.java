@@ -40,7 +40,6 @@ import org.example.emfdb.addressbook.AddressBook;
 import org.example.emfdb.addressbook.AddressbookFactory;
 import org.example.emfdb.addressbook.AddressbookPackage;
 import org.example.emfdb.addressbook.Person;
-import org.example.emfdb.addressbook.PhoneNumber;
 import org.example.emfdb.beans.Car;
 import org.example.emfdb.beans.Truck;
 
@@ -89,15 +88,29 @@ public class View extends ViewPart {
 						ab.getPeople().clear();
 					}
 				});
-
+		this.getViewSite().getActionBars().getMenuManager().add(
+				new Action("Create EMF Columns") {
+					@Override
+					public void run() {
+						createEMFColumns(viewer, obListContentProvider.getKnownElements());
+					}
+				});
+		this.getViewSite().getActionBars().getMenuManager().add(
+				new Action("Create Bean Columns") {
+					@Override
+					public void run() {
+						createJavaBeanColumns(viewer, obListContentProvider.getKnownElements());
+					}
+				});
 		for (final int count : new int[] { 100, 1000, 10000 }) {
 			this.getViewSite().getActionBars().getMenuManager().add(
 					new Action(String.format("%d EObjects Non-null", count)) {
 						@Override
 						public void run() {
-							List<Person> people = createPeople(count, true);
-							ab.getPeople().addAll(people);
-							for (TableColumn c : viewer.getTable().getColumns()) {
+							viewer.setInput(EMFProperties.list(
+									AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE).observe(ab));
+							ab.getPeople().addAll(Utils.createPeople(count, true));
+							for(TableColumn c : viewer.getTable().getColumns()) {
 								c.pack();
 							}
 						}
@@ -106,9 +119,10 @@ public class View extends ViewPart {
 					new Action(String.format("%d EObjects Null numbers", count)) {
 						@Override
 						public void run() {
-							List<Person> people = createPeople(count, false);
-							ab.getPeople().addAll(people);
-							for (TableColumn c : viewer.getTable().getColumns()) {
+							viewer.setInput(EMFProperties.list(
+									AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE).observe(ab));
+							ab.getPeople().addAll(Utils.createPeople(count, false));
+							for(TableColumn c : viewer.getTable().getColumns()) {
 								c.pack();
 							}
 						}
@@ -130,11 +144,10 @@ public class View extends ViewPart {
 					@Override
 					public void run() {
 						for (int i = 0; i < providers.length; i++) {
-							providers[i] = new TemperatureSource();
-							providers[i].start();
+							providers[i] = new TemperatureSource(i+1);
 						}
 						for (final Person p : ab.getPeople()) {
-							int index = (int) (Math.random() * 10);
+							int index = (int) (Math.random() * providers.length);
 							providers[index]
 									.addPropertyChangeListener(new PropertyChangeListener() {
 										public void propertyChange(
@@ -144,6 +157,24 @@ public class View extends ViewPart {
 													.doubleValue());
 										}
 									});
+						}
+					}
+				});
+		this.getViewSite().getActionBars().getMenuManager().add(
+				new Action("Auto Update Temps") {
+					@Override
+					public void run() {
+						for (int i = 0; i < providers.length; i++) {
+							providers[i].start();
+						}
+					}
+				});
+		this.getViewSite().getActionBars().getMenuManager().add(
+				new Action("Auto Update Temps") {
+					@Override
+					public void run() {
+						for (int i = 0; i < providers.length; i++) {
+							providers[i].start();
 						}
 					}
 				});
@@ -161,6 +192,7 @@ public class View extends ViewPart {
 		if (this.usingSwtVirtual)
 			style |= SWT.VIRTUAL;
 		viewer = new TableViewer(this.parent, style);
+		viewer.setUseHashlookup(true);
 		viewer.setContentProvider(obListContentProvider);
 		viewer.getTable().setHeaderVisible(true);
 		viewer.getTable().setLinesVisible(true);
@@ -206,12 +238,10 @@ public class View extends ViewPart {
 
 			public void afterEditorActivated(
 					ColumnViewerEditorActivationEvent event) {
-				
 			}
 
 			public void afterEditorDeactivated(
 					ColumnViewerEditorDeactivationEvent event) {
-				
 			}
 
 			public void beforeEditorActivated(
@@ -222,7 +252,6 @@ public class View extends ViewPart {
 
 			public void beforeEditorDeactivated(
 					ColumnViewerEditorDeactivationEvent event) {
-				
 			}
 			
 		});
@@ -272,34 +301,72 @@ public class View extends ViewPart {
 	}
 	private void createEMFColumns(final TableViewer viewer, final IObservableSet set) {
 		clearColumns(viewer);
-		IObservableMap map = EMFProperties.value(
-				AddressbookPackage.Literals.PERSON__FIRST_NAME).observeDetail(
-				set);
+		
+		IObservableMap[] maps = Utils.createEMFObservableMapsWithIntermediate(set);
 		TableViewerColumn tvc = new TableViewerColumn(viewer, SWT.LEFT);
-		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[0]));
 		tvc.getColumn().setText("First Name");
 		tvc.getColumn().addSelectionListener(
-				new GenericPropertyColumnSorter(viewer, map));
-		tvc.setEditingSupport(new MapEditingSupport(viewer, map));
+				new GenericPropertyColumnSorter(viewer, maps[0]));
+		tvc.setEditingSupport(new MapEditingSupport(viewer, maps[0]));
 		tvc.getColumn().pack();
 
-		map = EMFProperties
-				.value(AddressbookPackage.Literals.PERSON__LAST_NAME)
-				.observeDetail(set);
 		tvc = new TableViewerColumn(viewer, SWT.LEFT);
-		tvc.setLabelProvider(new ObservableMapCellLabelProvider(map));
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[1]));
 		tvc.getColumn().setText("Last Name");
 		tvc.getColumn().addSelectionListener(
-				new GenericPropertyColumnSorter(viewer, map));
-		tvc.setEditingSupport(new MapEditingSupport(viewer, map));
+				new GenericPropertyColumnSorter(viewer, maps[1]));
+		tvc.setEditingSupport(new MapEditingSupport(viewer, maps[1]));
 		tvc.getColumn().pack();
 
-		map = EMFProperties.value(
-				AddressbookPackage.Literals.PERSON__TEMPERATURE).observeDetail(
-				set);
 		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
-		tvc.setLabelProvider(new DelayedLabelProvider(map, 2000));
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[2]));
 		tvc.getColumn().setText("Temp");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[3]));
+		tvc.getColumn().setText("A1");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[4]));
+		tvc.getColumn().setText("A2");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[5]));
+		tvc.getColumn().setText("A3");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[6]));
+		tvc.getColumn().setText("A4");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[7]));
+		tvc.getColumn().setText("A5");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[8]));
+		tvc.getColumn().setText("A6");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[9]));
+		tvc.getColumn().setText("A7");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[10]));
+		tvc.getColumn().setText("A8");
+		tvc.getColumn().pack();
+
+		tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+		tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[11]));
+		tvc.getColumn().setText("A9");
 		tvc.getColumn().pack();
 	}
 
@@ -344,27 +411,8 @@ public class View extends ViewPart {
 		}
 	}
 
-	private List<Person> createPeople(int count, boolean includePhoneNumber) {
-		createEMFColumns(viewer, obListContentProvider.getKnownElements());
-		viewer.setInput(EMFProperties.list(
-				AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE).observe(ab));
-		
-		List<Person> people = new ArrayList<Person>(count);
-		for (int i = 0; i < count; i++) {
-			Person p = AddressbookFactory.eINSTANCE.createPerson();
-			p.setFirstName(Double.toString(Math.random()));
-			p.setLastName(Double.toString(Math.random()));
-			PhoneNumber number = AddressbookFactory.eINSTANCE
-					.createPhoneNumber();
-			number.setNumber(Double.toString(Math.random()));
-			p.getPhoneNumbers().add(number);
-			people.add(p);
-		}
-		return people;
-	}
-	
 	private List<Car> createCars(int count) {
-		createJavaBeanColumns(viewer, obListContentProvider.getKnownElements());
+		// createJavaBeanColumns(viewer, obListContentProvider.getKnownElements());
 		List<Car> cars = new ArrayList<Car>(count);
 		for( int i = 0; i < count; i++ ) {
 			if( i % 10 == 0 ) {
@@ -379,22 +427,28 @@ public class View extends ViewPart {
 
 	public class TemperatureSource extends Thread {
 		private final PropertyChangeSupport pcs;
+		private final int frequency;
 		private double temperature;
 
-		public TemperatureSource() {
+		public TemperatureSource(int frequency) {
 			this.pcs = new PropertyChangeSupport(this);
+			this.frequency = frequency;
 		}
 
 		@Override
 		public void run() {
 			while (true) {
-				this.setTemperature(Math.random() * 100.0d);
+				tweakTemp();
 				try {
-					Thread.sleep((long) (Math.random() * 10.0d + 10.0d));
+					Thread.sleep((long) (Math.random() * 200.0d * frequency + 50.0d));
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 				}
 			}
+		}
+
+		public void tweakTemp() {
+			this.setTemperature(Math.random() * 100.0d);
 		}
 
 		public double getTemperature() {

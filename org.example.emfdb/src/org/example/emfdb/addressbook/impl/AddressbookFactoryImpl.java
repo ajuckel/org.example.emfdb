@@ -64,6 +64,7 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements AddressbookF
 			case AddressbookPackage.PHONE_NUMBER: return createPhoneNumber();
 			case AddressbookPackage.ADDRESS_BOOK: return createAddressBook();
 			case AddressbookPackage.SCORE: return createScore();
+			case AddressbookPackage.GARBAGE: return createGarbage();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -109,6 +110,16 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements AddressbookF
 		return score;
 	}
 	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Garbage createGarbage() {
+		GarbageImpl garbage = new GarbageImpl();
+		return garbage;
+	}
+
 	public Score createScore(int i, long l, float f, double d) {
 		Score score = createScore();
 		score.setI(i); score.setL(l); score.setF(f); score.setD(d);

@@ -12,6 +12,15 @@
       </application>
    </extension>
    <extension
+         id="perftest"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="org.example.emfdb.PerfTest">
+         </run>
+      </application>
+   </extension>
+   <extension
          point="org.eclipse.ui.perspectives">
       <perspective
             name="Perspective"
@@ -66,6 +75,18 @@
             </command>
          </menu>
       </menuContribution>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.example.emfdb.application"
+            name="Databinding Test App">
+         <property
+               name="appName"
+               value="Databinding Test App">
+         </property>
+      </product>
    </extension>
 
 </plugin>

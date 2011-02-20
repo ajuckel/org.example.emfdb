@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.example.emfdb.addressbook.Person#getPhoneNumbers <em>Phone Numbers</em>}</li>
  *   <li>{@link org.example.emfdb.addressbook.Person#getScores <em>Scores</em>}</li>
  *   <li>{@link org.example.emfdb.addressbook.Person#getTemperature <em>Temperature</em>}</li>
+ *   <li>{@link org.example.emfdb.addressbook.Person#getGarbage <em>Garbage</em>}</li>
  * </ul>
  * </p>
  *
@@ -139,5 +140,31 @@ public interface Person extends EObject {
 	 * @generated
 	 */
 	void setTemperature(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Garbage</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Garbage</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Garbage</em>' reference.
+	 * @see #setGarbage(Garbage)
+	 * @see org.example.emfdb.addressbook.AddressbookPackage#getPerson_Garbage()
+	 * @model
+	 * @generated
+	 */
+	Garbage getGarbage();
+
+	/**
+	 * Sets the value of the '{@link org.example.emfdb.addressbook.Person#getGarbage <em>Garbage</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Garbage</em>' reference.
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	void setGarbage(Garbage value);
 
 } // Person

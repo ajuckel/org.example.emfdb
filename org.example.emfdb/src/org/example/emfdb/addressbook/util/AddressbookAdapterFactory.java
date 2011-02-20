@@ -88,6 +88,10 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
 				return createScoreAdapter();
 			}
 			@Override
+			public Adapter caseGarbage(Garbage object) {
+				return createGarbageAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -160,6 +164,20 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createScoreAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.example.emfdb.addressbook.Garbage <em>Garbage</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.example.emfdb.addressbook.Garbage
+	 * @generated
+	 */
+	public Adapter createGarbageAdapter() {
 		return null;
 	}
 

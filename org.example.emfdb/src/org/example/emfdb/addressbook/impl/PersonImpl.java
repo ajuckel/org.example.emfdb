@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.example.emfdb.addressbook.AddressbookPackage;
+import org.example.emfdb.addressbook.Garbage;
 import org.example.emfdb.addressbook.Person;
 import org.example.emfdb.addressbook.PhoneNumber;
 import org.example.emfdb.addressbook.Score;
@@ -37,6 +38,7 @@ import org.example.emfdb.addressbook.Score;
  *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getPhoneNumbers <em>Phone Numbers</em>}</li>
  *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getScores <em>Scores</em>}</li>
  *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getTemperature <em>Temperature</em>}</li>
+ *   <li>{@link org.example.emfdb.addressbook.impl.PersonImpl#getGarbage <em>Garbage</em>}</li>
  * </ul>
  * </p>
  *
@@ -122,6 +124,16 @@ public class PersonImpl extends EObjectImpl implements Person {
 	 * @ordered
 	 */
 	protected double temperature = TEMPERATURE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getGarbage() <em>Garbage</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGarbage()
+	 * @generated
+	 * @ordered
+	 */
+	protected Garbage garbage;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -234,6 +246,44 @@ public class PersonImpl extends EObjectImpl implements Person {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Garbage getGarbage() {
+		if (garbage != null && garbage.eIsProxy()) {
+			InternalEObject oldGarbage = (InternalEObject)garbage;
+			garbage = (Garbage)eResolveProxy(oldGarbage);
+			if (garbage != oldGarbage) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AddressbookPackage.PERSON__GARBAGE, oldGarbage, garbage));
+			}
+		}
+		return garbage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Garbage basicGetGarbage() {
+		return garbage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGarbage(Garbage newGarbage) {
+		Garbage oldGarbage = garbage;
+		garbage = newGarbage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressbookPackage.PERSON__GARBAGE, oldGarbage, garbage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -261,6 +311,9 @@ public class PersonImpl extends EObjectImpl implements Person {
 				return getScores();
 			case AddressbookPackage.PERSON__TEMPERATURE:
 				return getTemperature();
+			case AddressbookPackage.PERSON__GARBAGE:
+				if (resolve) return getGarbage();
+				return basicGetGarbage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -291,6 +344,9 @@ public class PersonImpl extends EObjectImpl implements Person {
 			case AddressbookPackage.PERSON__TEMPERATURE:
 				setTemperature((Double)newValue);
 				return;
+			case AddressbookPackage.PERSON__GARBAGE:
+				setGarbage((Garbage)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -318,6 +374,9 @@ public class PersonImpl extends EObjectImpl implements Person {
 			case AddressbookPackage.PERSON__TEMPERATURE:
 				setTemperature(TEMPERATURE_EDEFAULT);
 				return;
+			case AddressbookPackage.PERSON__GARBAGE:
+				setGarbage((Garbage)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -340,6 +399,8 @@ public class PersonImpl extends EObjectImpl implements Person {
 				return scores != null && !scores.isEmpty();
 			case AddressbookPackage.PERSON__TEMPERATURE:
 				return temperature != TEMPERATURE_EDEFAULT;
+			case AddressbookPackage.PERSON__GARBAGE:
+				return garbage != null;
 		}
 		return super.eIsSet(featureID);
 	}

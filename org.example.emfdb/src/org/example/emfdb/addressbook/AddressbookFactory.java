@@ -61,6 +61,15 @@ public interface AddressbookFactory extends EFactory {
 	 */
 	Score createScore();
 	
+	/**
+	 * Returns a new object of class '<em>Garbage</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Garbage</em>'.
+	 * @generated
+	 */
+	Garbage createGarbage();
+
 	Score createScore(int i, long l, float f, double d);
 
 	/**

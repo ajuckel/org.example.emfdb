@@ -115,13 +115,22 @@ public interface AddressbookPackage extends EPackage {
 	int PERSON__TEMPERATURE = 4;
 
 	/**
+	 * The feature id for the '<em><b>Garbage</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERSON__GARBAGE = 5;
+
+	/**
 	 * The number of structural features of the '<em>Person</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSON_FEATURE_COUNT = 5;
+	int PERSON_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.example.emfdb.addressbook.impl.PhoneNumberImpl <em>Phone Number</em>}' class.
@@ -246,6 +255,107 @@ public interface AddressbookPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.example.emfdb.addressbook.impl.GarbageImpl <em>Garbage</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.example.emfdb.addressbook.impl.GarbageImpl
+	 * @see org.example.emfdb.addressbook.impl.AddressbookPackageImpl#getGarbage()
+	 * @generated
+	 */
+	int GARBAGE = 4;
+
+	/**
+	 * The feature id for the '<em><b>A1</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A1 = 0;
+
+	/**
+	 * The feature id for the '<em><b>A2</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A2 = 1;
+
+	/**
+	 * The feature id for the '<em><b>A3</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A3 = 2;
+
+	/**
+	 * The feature id for the '<em><b>A4</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A4 = 3;
+
+	/**
+	 * The feature id for the '<em><b>A5</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A5 = 4;
+
+	/**
+	 * The feature id for the '<em><b>A6</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A6 = 5;
+
+	/**
+	 * The feature id for the '<em><b>A7</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A7 = 6;
+
+	/**
+	 * The feature id for the '<em><b>A8</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A8 = 7;
+
+	/**
+	 * The feature id for the '<em><b>A9</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE__A9 = 8;
+
+	/**
+	 * The number of structural features of the '<em>Garbage</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GARBAGE_FEATURE_COUNT = 9;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.Person <em>Person</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -309,6 +419,17 @@ public interface AddressbookPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPerson_Temperature();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.example.emfdb.addressbook.Person#getGarbage <em>Garbage</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Garbage</em>'.
+	 * @see org.example.emfdb.addressbook.Person#getGarbage()
+	 * @see #getPerson()
+	 * @generated
+	 */
+	EReference getPerson_Garbage();
 
 	/**
 	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.PhoneNumber <em>Phone Number</em>}'.
@@ -418,6 +539,115 @@ public interface AddressbookPackage extends EPackage {
 	EAttribute getScore_D();
 
 	/**
+	 * Returns the meta object for class '{@link org.example.emfdb.addressbook.Garbage <em>Garbage</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Garbage</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage
+	 * @generated
+	 */
+	EClass getGarbage();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA1 <em>A1</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A1</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA1()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A1();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA2 <em>A2</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A2</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA2()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A2();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA3 <em>A3</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A3</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA3()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A3();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA4 <em>A4</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A4</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA4()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A4();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA5 <em>A5</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A5</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA5()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A5();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA6 <em>A6</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A6</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA6()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A6();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA7 <em>A7</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A7</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA7()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A7();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA8 <em>A8</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A8</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA8()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A8();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.example.emfdb.addressbook.Garbage#getA9 <em>A9</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>A9</em>'.
+	 * @see org.example.emfdb.addressbook.Garbage#getA9()
+	 * @see #getGarbage()
+	 * @generated
+	 */
+	EAttribute getGarbage_A9();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -488,6 +718,14 @@ public interface AddressbookPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PERSON__TEMPERATURE = eINSTANCE.getPerson_Temperature();
+
+		/**
+		 * The meta object literal for the '<em><b>Garbage</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PERSON__GARBAGE = eINSTANCE.getPerson_Garbage();
 
 		/**
 		 * The meta object literal for the '{@link org.example.emfdb.addressbook.impl.PhoneNumberImpl <em>Phone Number</em>}' class.
@@ -574,6 +812,88 @@ public interface AddressbookPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SCORE__D = eINSTANCE.getScore_D();
+
+		/**
+		 * The meta object literal for the '{@link org.example.emfdb.addressbook.impl.GarbageImpl <em>Garbage</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.example.emfdb.addressbook.impl.GarbageImpl
+		 * @see org.example.emfdb.addressbook.impl.AddressbookPackageImpl#getGarbage()
+		 * @generated
+		 */
+		EClass GARBAGE = eINSTANCE.getGarbage();
+
+		/**
+		 * The meta object literal for the '<em><b>A1</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A1 = eINSTANCE.getGarbage_A1();
+
+		/**
+		 * The meta object literal for the '<em><b>A2</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A2 = eINSTANCE.getGarbage_A2();
+
+		/**
+		 * The meta object literal for the '<em><b>A3</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A3 = eINSTANCE.getGarbage_A3();
+
+		/**
+		 * The meta object literal for the '<em><b>A4</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A4 = eINSTANCE.getGarbage_A4();
+
+		/**
+		 * The meta object literal for the '<em><b>A5</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A5 = eINSTANCE.getGarbage_A5();
+
+		/**
+		 * The meta object literal for the '<em><b>A6</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A6 = eINSTANCE.getGarbage_A6();
+
+		/**
+		 * The meta object literal for the '<em><b>A7</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A7 = eINSTANCE.getGarbage_A7();
+
+		/**
+		 * The meta object literal for the '<em><b>A8</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A8 = eINSTANCE.getGarbage_A8();
+
+		/**
+		 * The meta object literal for the '<em><b>A9</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GARBAGE__A9 = eINSTANCE.getGarbage_A9();
 
 	}
 

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.example.emfdb.addressbook.AddressBook;
 import org.example.emfdb.addressbook.AddressbookFactory;
 import org.example.emfdb.addressbook.AddressbookPackage;
+import org.example.emfdb.addressbook.Garbage;
 import org.example.emfdb.addressbook.Person;
 import org.example.emfdb.addressbook.PhoneNumber;
 import org.example.emfdb.addressbook.Score;
@@ -56,6 +57,13 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 * @generated
 	 */
 	private EClass scoreEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass garbageEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -180,6 +188,15 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPerson_Garbage() {
+		return (EReference)personEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPhoneNumber() {
 		return phoneNumberEClass;
 	}
@@ -270,6 +287,96 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGarbage() {
+		return garbageEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A1() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A2() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A3() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A4() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A5() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A6() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A7() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A8() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGarbage_A9() {
+		return (EAttribute)garbageEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AddressbookFactory getAddressbookFactory() {
 		return (AddressbookFactory)getEFactoryInstance();
 	}
@@ -299,6 +406,7 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		createEReference(personEClass, PERSON__PHONE_NUMBERS);
 		createEReference(personEClass, PERSON__SCORES);
 		createEAttribute(personEClass, PERSON__TEMPERATURE);
+		createEReference(personEClass, PERSON__GARBAGE);
 
 		phoneNumberEClass = createEClass(PHONE_NUMBER);
 		createEAttribute(phoneNumberEClass, PHONE_NUMBER__NUMBER);
@@ -312,6 +420,17 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		createEAttribute(scoreEClass, SCORE__L);
 		createEAttribute(scoreEClass, SCORE__F);
 		createEAttribute(scoreEClass, SCORE__D);
+
+		garbageEClass = createEClass(GARBAGE);
+		createEAttribute(garbageEClass, GARBAGE__A1);
+		createEAttribute(garbageEClass, GARBAGE__A2);
+		createEAttribute(garbageEClass, GARBAGE__A3);
+		createEAttribute(garbageEClass, GARBAGE__A4);
+		createEAttribute(garbageEClass, GARBAGE__A5);
+		createEAttribute(garbageEClass, GARBAGE__A6);
+		createEAttribute(garbageEClass, GARBAGE__A7);
+		createEAttribute(garbageEClass, GARBAGE__A8);
+		createEAttribute(garbageEClass, GARBAGE__A9);
 	}
 
 	/**
@@ -353,6 +472,7 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		initEReference(getPerson_PhoneNumbers(), this.getPhoneNumber(), null, "phoneNumbers", null, 0, -1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPerson_Scores(), this.getScore(), null, "scores", null, 0, -1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPerson_Temperature(), theXMLTypePackage.getDouble(), "temperature", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPerson_Garbage(), this.getGarbage(), null, "garbage", null, 0, 1, Person.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(phoneNumberEClass, PhoneNumber.class, "PhoneNumber", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPhoneNumber_Number(), theXMLTypePackage.getString(), "number", null, 0, 1, PhoneNumber.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -366,6 +486,17 @@ public class AddressbookPackageImpl extends EPackageImpl implements AddressbookP
 		initEAttribute(getScore_L(), theXMLTypePackage.getLong(), "l", null, 0, 1, Score.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getScore_F(), theXMLTypePackage.getFloat(), "f", null, 0, 1, Score.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getScore_D(), theXMLTypePackage.getDouble(), "d", null, 0, 1, Score.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(garbageEClass, Garbage.class, "Garbage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGarbage_A1(), theXMLTypePackage.getString(), "a1", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A2(), theXMLTypePackage.getString(), "a2", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A3(), theXMLTypePackage.getString(), "a3", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A4(), theXMLTypePackage.getString(), "a4", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A5(), theXMLTypePackage.getString(), "a5", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A6(), theXMLTypePackage.getString(), "a6", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A7(), theXMLTypePackage.getString(), "a7", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A8(), theXMLTypePackage.getString(), "a8", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGarbage_A9(), theXMLTypePackage.getString(), "a9", null, 0, 1, Garbage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
