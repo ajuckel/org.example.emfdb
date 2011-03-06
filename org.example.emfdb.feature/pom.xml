@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>org.example.emfdb</groupId>
-  <artifactId>org.example.emfdb</artifactId>
+  <artifactId>org.example.emfdb.feature</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>eclipse-plugin</packaging>
+  <packaging>eclipse-feature</packaging>
 </project>

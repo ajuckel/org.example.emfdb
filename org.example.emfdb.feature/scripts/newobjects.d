@@ -1,6 +1,7 @@
 #!/usr/sbin/dtrace -qs
 
-#pragma D option bufsize=16m
+#pragma D option aggsize=8m
+#pragma D option bufsize=8m
 #pragma D option quiet
 #pragma D option switchrate=10
 #pragma D option jstackstrsize=16m
@@ -15,7 +16,8 @@ hotspot$target:::method-entry
 }
 
 hotspot$target:::object-alloc 
-/ arg2 > 11 && copyinstr(arg1,11) == "org/eclipse" && self->trace[0] /
+/ arg2 >= 1 && self->trace[0] > 0 /
+/* arg2 > 11 && copyinstr(arg1,11) == "org/eclipse" && self->trace[0] */
 { 
     @totalobjects[copyinstr(arg1,arg2)] = count();
     @objectbytes[copyinstr(arg1,arg2)] = sum(arg3);

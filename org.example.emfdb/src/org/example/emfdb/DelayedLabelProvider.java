@@ -18,19 +18,18 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
 public class DelayedLabelProvider extends CellLabelProvider implements
-        IFontProvider, IColorProvider,
-        ILabelProvider {
+        IFontProvider, IColorProvider, ILabelProvider {
 
-    private IObservableMap[]     attributeMaps;
-    private final Format         format;
+    private IObservableMap[] attributeMaps;
+    private final Format format;
     protected IMapChangeListener mapChangeListener;
 
     public DelayedLabelProvider(IObservableMap attributeMap, Format format) {
-        this(new IObservableMap[] {attributeMap}, format);
+        this(new IObservableMap[] { attributeMap }, format);
     }
 
     public DelayedLabelProvider(IObservableMap attributeMap) {
-        this(new IObservableMap[] {attributeMap}, null);
+        this(new IObservableMap[] { attributeMap }, null);
     }
 
     public DelayedLabelProvider(IObservableMap[] attributeMaps) {
@@ -42,22 +41,23 @@ public class DelayedLabelProvider extends CellLabelProvider implements
     }
 
     public DelayedLabelProvider(IObservableMap map, int delay) {
-    	this(new IObservableMap[] {map}, null, delay);
-	}
+        this(new IObservableMap[] { map }, null, delay);
+    }
 
-    public DelayedLabelProvider(IObservableMap[] attributeMaps, Format format, int delay) {
+    public DelayedLabelProvider(IObservableMap[] attributeMaps, Format format,
+            int delay) {
         System.arraycopy(attributeMaps, 0,
-            this.attributeMaps = new IObservableMap[attributeMaps.length],
-            0, attributeMaps.length);
+                this.attributeMaps = new IObservableMap[attributeMaps.length],
+                0, attributeMaps.length);
         this.format = format;
-        this.mapChangeListener = (delay == 0) ? getMapChangeListener() :
-                getDelayedMapChangeListener(delay);
-        for(IObservableMap map : attributeMaps) {
-        	map.addMapChangeListener(this.mapChangeListener);
+        this.mapChangeListener = (delay == 0) ? getMapChangeListener()
+                : getDelayedMapChangeListener(delay);
+        for (IObservableMap map : attributeMaps) {
+            map.addMapChangeListener(this.mapChangeListener);
         }
     }
 
-	@Override
+    @Override
     public void update(ViewerCell cell) {
         Object element = cell.getElement();
         cell.setFont(this.getFont(element));
@@ -66,7 +66,6 @@ public class DelayedLabelProvider extends CellLabelProvider implements
         cell.setImage(this.getImage(element));
         cell.setText(this.getText(element));
     }
-
 
     // @Override
     public Font getFont(Object element) {
@@ -113,8 +112,7 @@ public class DelayedLabelProvider extends CellLabelProvider implements
             public void handleMapChange(MapChangeEvent event) {
                 Set<?> affectedElements = event.diff.getChangedKeys();
                 LabelProviderChangedEvent newEvent = new LabelProviderChangedEvent(
-                              DelayedLabelProvider.this, affectedElements
-                                          .toArray());
+                        DelayedLabelProvider.this, affectedElements.toArray());
                 fireLabelProviderChanged(newEvent);
             }
         };
@@ -125,13 +123,15 @@ public class DelayedLabelProvider extends CellLabelProvider implements
     }
 
     /**
-     * An IMapChangeListener that also acts as a Runnable to be scheduled. 
+     * An IMapChangeListener that also acts as a Runnable to be scheduled.
+     * 
      * @author tjuckel
      */
-    protected class DelayedMapChangeListener implements IMapChangeListener, Runnable {
-        private final int         delay;
+    protected class DelayedMapChangeListener implements IMapChangeListener,
+            Runnable {
+        private final int delay;
         private final Set<Object> affectedElements;
-        private boolean           scheduled = false;
+        private boolean scheduled = false;
 
         public DelayedMapChangeListener(int delay) {
             this.delay = delay;
@@ -143,16 +143,20 @@ public class DelayedLabelProvider extends CellLabelProvider implements
             synchronized (this.affectedElements) {
                 this.affectedElements.addAll(event.diff.getChangedKeys());
                 if (!scheduled) {
-                    DelayedLabelProvider.this.attributeMaps[0].getRealm().timerExec(delay, this);
+                    DelayedLabelProvider.this.attributeMaps[0].getRealm()
+                            .timerExec(delay, this);
                     scheduled = true;
                 }
             }
         }
 
         public void run() {
-            // It's important to block out the work appropriately.  Obtain the set of objects to be
-            // updated, clear the hash and set scheduled to false while holding the lock.  Then 
-            // release, so that further updates may be properly scheduled while we're notifying listeners.
+            // It's important to block out the work appropriately. Obtain the
+            // set of objects to be
+            // updated, clear the hash and set scheduled to false while holding
+            // the lock. Then
+            // release, so that further updates may be properly scheduled while
+            // we're notifying listeners.
             Set<Object> elements = null;
             synchronized (this.affectedElements) {
                 elements = new HashSet<Object>(this.affectedElements);
@@ -161,7 +165,7 @@ public class DelayedLabelProvider extends CellLabelProvider implements
             }
 
             LabelProviderChangedEvent newEvent = new LabelProviderChangedEvent(
-                DelayedLabelProvider.this, elements.toArray());
+                    DelayedLabelProvider.this, elements.toArray());
             fireLabelProviderChanged(newEvent);
         }
     }

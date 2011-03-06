@@ -8,6 +8,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>org.example.emfdb</module>
+    <module>org.example.emfdb.feature</module>
   </modules>
   <properties>
   	<tycho-version>0.10.0</tycho-version>

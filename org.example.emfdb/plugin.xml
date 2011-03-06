@@ -81,11 +81,10 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="org.example.emfdb.application"
-            name="Databinding Test App">
+            name="Sample EMF Databinding Application">
          <property
                name="appName"
-               value="Databinding Test App">
-         </property>
+               value="Sample EMF Databinding Application"/>
       </product>
    </extension>
 
