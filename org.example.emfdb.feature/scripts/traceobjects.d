@@ -40,6 +40,4 @@ END
     printf("%-30s  %-15s  %-10s\n", "Class", "Objects created", "Bytes Allocated");
     printa("%-30s  %-15@d  %-10@d\n", @totalobjects, @objectbytes);
     printf("\n");
-    trunc(@totalobjects);
-    trunc(@objectbytes);
 }

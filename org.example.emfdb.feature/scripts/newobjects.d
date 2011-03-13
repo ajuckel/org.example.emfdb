@@ -31,7 +31,7 @@ hotspot$target:::method-return
     self->trace[0]--;
 }
 
-profile:::tick-5sec
+END
 {
      printf("%-30s  %-15s  %-10s\n", "Class", 
                                      "Objects created", 
@@ -40,7 +40,4 @@ profile:::tick-5sec
      printa("%-30s  %-15@d  %-10@d\n", @totalobjects, 
                                        @objectbytes);
      printf("\n");
-
-     trunc(@totalobjects);
-     trunc(@objectbytes);
 }
