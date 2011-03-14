@@ -94,11 +94,20 @@ public class View extends ViewPart {
                     @Override
                     public void run() {
                         createEMFColumns(viewer,
-                                obListContentProvider.getKnownElements());
+                                Utils.createEMFObservableMapsWithIntermediate(obListContentProvider.getKnownElements()));
                     }
                 });
         this.getViewSite().getActionBars().getMenuManager()
-                .add(new Action("Create Bean Columns") {
+                .add(new Action("Create EMF Columns w/o Leaf Listening") {
+                    @Override
+                    public void run() {
+                        createEMFColumns(viewer, 
+                                Utils.createEMFObservableMapsWithoutLeafListening(obListContentProvider.getKnownElements()));
+                    }
+                });
+        this.getViewSite().getActionBars().getMenuManager()
+                .add(new Action("" +
+                		"Bean Columns") {
                     @Override
                     public void run() {
                         createJavaBeanColumns(viewer,
@@ -329,12 +338,9 @@ public class View extends ViewPart {
 
     }
 
-    private void createEMFColumns(final TableViewer viewer,
-            final IObservableSet set) {
+    private void createEMFColumns(final TableViewer viewer, IObservableMap[] maps) {
         clearColumns(viewer);
 
-        IObservableMap[] maps = Utils
-                .createEMFObservableMapsWithIntermediate(set);
         TableViewerColumn tvc = new TableViewerColumn(viewer, SWT.LEFT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[0]));
         tvc.getColumn().setText("First Name");
