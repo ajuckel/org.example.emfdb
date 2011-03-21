@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.example.emfdb.addressbook.impl;
+package org.example.emfdb.instrument.impl;
 
 import java.util.Collection;
 
@@ -20,40 +20,40 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.example.emfdb.addressbook.AddressBook;
-import org.example.emfdb.addressbook.AddressbookPackage;
-import org.example.emfdb.addressbook.Person;
+import org.example.emfdb.instrument.Instrument;
+import org.example.emfdb.instrument.InstrumentPackage;
+import org.example.emfdb.instrument.Portfolio;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Address Book</b></em>'. <!-- end-user-doc -->
+ * <em><b>Portfolio</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.example.emfdb.addressbook.impl.AddressBookImpl#getPeople <em>
- * People</em>}</li>
+ * <li>{@link org.example.emfdb.instrument.impl.PortfolioImpl#getInstruments
+ * <em>Instruments</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
-public class AddressBookImpl extends EObjectImpl implements AddressBook {
+public class PortfolioImpl extends EObjectImpl implements Portfolio {
     /**
-     * The cached value of the '{@link #getPeople() <em>People</em>}'
+     * The cached value of the '{@link #getInstruments() <em>Instruments</em>}'
      * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @see #getPeople()
+     * @see #getInstruments()
      * @generated
      * @ordered
      */
-    protected EList<Person> people;
+    protected EList<Instrument> instruments;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
      */
-    protected AddressBookImpl() {
+    protected PortfolioImpl() {
         super();
     }
 
@@ -64,7 +64,7 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
      */
     @Override
     protected EClass eStaticClass() {
-        return AddressbookPackage.Literals.ADDRESS_BOOK;
+        return InstrumentPackage.Literals.PORTFOLIO;
     }
 
     /**
@@ -72,12 +72,13 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
      * 
      * @generated
      */
-    public EList<Person> getPeople() {
-        if (people == null) {
-            people = new EObjectContainmentEList<Person>(Person.class, this,
-                    AddressbookPackage.ADDRESS_BOOK__PEOPLE);
+    public EList<Instrument> getInstruments() {
+        if (instruments == null) {
+            instruments = new EObjectContainmentEList<Instrument>(
+                    Instrument.class, this,
+                    InstrumentPackage.PORTFOLIO__INSTRUMENTS);
         }
-        return people;
+        return instruments;
     }
 
     /**
@@ -89,8 +90,9 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
     public NotificationChain eInverseRemove(InternalEObject otherEnd,
             int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case AddressbookPackage.ADDRESS_BOOK__PEOPLE:
-            return ((InternalEList<?>) getPeople()).basicRemove(otherEnd, msgs);
+        case InstrumentPackage.PORTFOLIO__INSTRUMENTS:
+            return ((InternalEList<?>) getInstruments()).basicRemove(otherEnd,
+                    msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -103,8 +105,8 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case AddressbookPackage.ADDRESS_BOOK__PEOPLE:
-            return getPeople();
+        case InstrumentPackage.PORTFOLIO__INSTRUMENTS:
+            return getInstruments();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -118,9 +120,10 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case AddressbookPackage.ADDRESS_BOOK__PEOPLE:
-            getPeople().clear();
-            getPeople().addAll((Collection<? extends Person>) newValue);
+        case InstrumentPackage.PORTFOLIO__INSTRUMENTS:
+            getInstruments().clear();
+            getInstruments()
+                    .addAll((Collection<? extends Instrument>) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -134,8 +137,8 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case AddressbookPackage.ADDRESS_BOOK__PEOPLE:
-            getPeople().clear();
+        case InstrumentPackage.PORTFOLIO__INSTRUMENTS:
+            getInstruments().clear();
             return;
         }
         super.eUnset(featureID);
@@ -149,21 +152,20 @@ public class AddressBookImpl extends EObjectImpl implements AddressBook {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case AddressbookPackage.ADDRESS_BOOK__PEOPLE:
-            return people != null && !people.isEmpty();
+        case InstrumentPackage.PORTFOLIO__INSTRUMENTS:
+            return instruments != null && !instruments.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     @SuppressWarnings("serial")
     public void useIdentityEqualsList() {
-        people = new EObjectContainmentEList<Person>(Person.class, this,
-                AddressbookPackage.ADDRESS_BOOK__PEOPLE) {
+        instruments = new EObjectContainmentEList<Instrument>(Instrument.class,
+                this, InstrumentPackage.PORTFOLIO__INSTRUMENTS) {
             @Override
             public boolean equals(Object object) {
                 return this == object;
             }
         };
     }
-
-} // AddressBookImpl
+} // PortfolioImpl

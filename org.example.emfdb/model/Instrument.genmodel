@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.example.emfdb/src"
+    modelPluginID="org.example.emfdb" modelName="Instrument" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>Instrument.ecore</foreignModel>
+  <genPackages prefix="Instrument" basePackage="org.example.emfdb" disposableProviderFactory="true"
+      ecorePackage="Instrument.ecore#/">
+    <genClasses ecoreClass="Instrument.ecore#//Instrument">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Instrument.ecore#//Instrument/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Instrument.ecore#//Instrument/symbol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Instrument.ecore#//Instrument/expirationDate"/>
+    </genClasses>
+    <genClasses ecoreClass="Instrument.ecore#//Portfolio">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Instrument.ecore#//Portfolio/instruments"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

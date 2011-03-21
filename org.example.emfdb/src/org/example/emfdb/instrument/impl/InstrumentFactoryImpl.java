@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.example.emfdb.addressbook.impl;
+package org.example.emfdb.instrument.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.example.emfdb.addressbook.*;
+import org.example.emfdb.instrument.*;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
@@ -22,25 +22,25 @@ import org.example.emfdb.addressbook.*;
  * 
  * @generated
  */
-public class AddressbookFactoryImpl extends EFactoryImpl implements
-        AddressbookFactory {
+public class InstrumentFactoryImpl extends EFactoryImpl implements
+        InstrumentFactory {
     /**
      * Creates the default factory implementation. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
      * @generated
      */
-    public static AddressbookFactory init() {
+    public static InstrumentFactory init() {
         try {
-            AddressbookFactory theAddressbookFactory = (AddressbookFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://example.org/addressbook");
-            if (theAddressbookFactory != null) {
-                return theAddressbookFactory;
+            InstrumentFactory theInstrumentFactory = (InstrumentFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http://example.org/instrument");
+            if (theInstrumentFactory != null) {
+                return theInstrumentFactory;
             }
         } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
-        return new AddressbookFactoryImpl();
+        return new InstrumentFactoryImpl();
     }
 
     /**
@@ -49,7 +49,7 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements
      * 
      * @generated
      */
-    public AddressbookFactoryImpl() {
+    public InstrumentFactoryImpl() {
         super();
     }
 
@@ -61,16 +61,14 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-        case AddressbookPackage.PERSON:
-            return createPerson();
-        case AddressbookPackage.PHONE_NUMBER:
-            return createPhoneNumber();
-        case AddressbookPackage.ADDRESS_BOOK:
-            return createAddressBook();
-        case AddressbookPackage.SCORE:
+        case InstrumentPackage.INSTRUMENT:
+            return createInstrument();
+        case InstrumentPackage.PORTFOLIO:
+            return createPortfolio();
+        case InstrumentPackage.SCORE:
             return createScore();
-        case AddressbookPackage.GARBAGE:
-            return createGarbage();
+        case InstrumentPackage.GREEKS:
+            return createGreeks();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName()
                     + "' is not a valid classifier");
@@ -82,9 +80,9 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements
      * 
      * @generated
      */
-    public Person createPerson() {
-        PersonImpl person = new PersonImpl();
-        return person;
+    public Instrument createInstrument() {
+        InstrumentImpl instrument = new InstrumentImpl();
+        return instrument;
     }
 
     /**
@@ -92,19 +90,9 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements
      * 
      * @generated
      */
-    public PhoneNumber createPhoneNumber() {
-        PhoneNumberImpl phoneNumber = new PhoneNumberImpl();
-        return phoneNumber;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public AddressBook createAddressBook() {
-        AddressBookImpl addressBook = new AddressBookImpl();
-        return addressBook;
+    public Portfolio createPortfolio() {
+        PortfolioImpl portfolio = new PortfolioImpl();
+        return portfolio;
     }
 
     /**
@@ -122,18 +110,20 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements
      * 
      * @generated
      */
-    public Garbage createGarbage() {
-        GarbageImpl garbage = new GarbageImpl();
-        return garbage;
+    public Greeks createGreeks() {
+        GreeksImpl greeks = new GreeksImpl();
+        return greeks;
     }
 
-    public Score createScore(int i, long l, float f, double d) {
-        Score score = createScore();
-        score.setI(i);
-        score.setL(l);
-        score.setF(f);
-        score.setD(d);
-        return score;
+    public Greeks createGreeks(double initialValue) {
+        Greeks greeks = this.createGreeks();
+        greeks.setPrice(initialValue);
+        greeks.setDelta(initialValue);
+        greeks.setGamma(initialValue);
+        greeks.setVega(initialValue);
+        greeks.setTheta(initialValue);
+        greeks.setRho(initialValue);
+        return greeks;
     }
 
     /**
@@ -141,8 +131,8 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements
      * 
      * @generated
      */
-    public AddressbookPackage getAddressbookPackage() {
-        return (AddressbookPackage) getEPackage();
+    public InstrumentPackage getInstrumentPackage() {
+        return (InstrumentPackage) getEPackage();
     }
 
     /**
@@ -152,8 +142,8 @@ public class AddressbookFactoryImpl extends EFactoryImpl implements
      * @generated
      */
     @Deprecated
-    public static AddressbookPackage getPackage() {
-        return AddressbookPackage.eINSTANCE;
+    public static InstrumentPackage getPackage() {
+        return InstrumentPackage.eINSTANCE;
     }
 
-} // AddressbookFactoryImpl
+} // InstrumentFactoryImpl

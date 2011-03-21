@@ -11,30 +11,30 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
-import org.example.emfdb.addressbook.AddressBook;
-import org.example.emfdb.addressbook.AddressbookFactory;
-import org.example.emfdb.addressbook.AddressbookPackage;
-import org.example.emfdb.addressbook.Person;
-import org.example.emfdb.addressbook.impl.AddressBookImpl;
+import org.example.emfdb.instrument.Portfolio;
+import org.example.emfdb.instrument.InstrumentFactory;
+import org.example.emfdb.instrument.InstrumentPackage;
+import org.example.emfdb.instrument.Instrument;
+import org.example.emfdb.instrument.impl.PortfolioImpl;
 
 public class DecoratedTestView extends ViewPart {
 
     @Override
     public void createPartControl(Composite parent) {
-        AddressBookImpl book = (AddressBookImpl) AddressbookFactory.eINSTANCE
-                .createAddressBook();
-        book.useIdentityEqualsList();
+        PortfolioImpl portfolio = (PortfolioImpl) InstrumentFactory.eINSTANCE
+                .createPortfolio();
+        portfolio.useIdentityEqualsList();
         for (int i = 0; i < 5; i++) {
-            Person p = AddressbookFactory.eINSTANCE.createPerson();
-            p.setFirstName("John " + i);
-            p.setLastName("Doe");
-            book.getPeople().add(p);
+            Instrument inst = InstrumentFactory.eINSTANCE.createInstrument();
+            inst.setId(i);
+            inst.setSymbol("Inst" + i);
+            portfolio.getInstruments().add(inst);
         }
 
-        WritableValue v = new WritableValue(book, AddressBook.class);
+        WritableValue v = new WritableValue(portfolio, Portfolio.class);
 
         IObservableList obList = EMFProperties.list(
-                AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE)
+                InstrumentPackage.Literals.PORTFOLIO__INSTRUMENTS)
                 .observeDetail(v);
         ObservableListContentProvider cp = new ObservableListContentProvider();
 
@@ -45,7 +45,7 @@ public class DecoratedTestView extends ViewPart {
         col.getColumn().setText("First Name");
         col.getColumn().pack();
         IObservableMap map = EMFProperties.value(
-                AddressbookPackage.Literals.PERSON__FIRST_NAME).observeDetail(
+                InstrumentPackage.Literals.INSTRUMENT__ID).observeDetail(
                 cp.getKnownElements());
         col.setLabelProvider(new ObservableMapCellLabelProvider(map));
         tv.setInput(obList);

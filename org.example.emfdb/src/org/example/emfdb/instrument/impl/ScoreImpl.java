@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.example.emfdb.addressbook.impl;
+package org.example.emfdb.instrument.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.example.emfdb.addressbook.AddressbookPackage;
-import org.example.emfdb.addressbook.Score;
+import org.example.emfdb.instrument.InstrumentPackage;
+import org.example.emfdb.instrument.Score;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -22,10 +22,10 @@ import org.example.emfdb.addressbook.Score;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.example.emfdb.addressbook.impl.ScoreImpl#getI <em>I</em>}</li>
- * <li>{@link org.example.emfdb.addressbook.impl.ScoreImpl#getL <em>L</em>}</li>
- * <li>{@link org.example.emfdb.addressbook.impl.ScoreImpl#getF <em>F</em>}</li>
- * <li>{@link org.example.emfdb.addressbook.impl.ScoreImpl#getD <em>D</em>}</li>
+ * <li>{@link org.example.emfdb.instrument.impl.ScoreImpl#getI <em>I</em>}</li>
+ * <li>{@link org.example.emfdb.instrument.impl.ScoreImpl#getL <em>L</em>}</li>
+ * <li>{@link org.example.emfdb.instrument.impl.ScoreImpl#getF <em>F</em>}</li>
+ * <li>{@link org.example.emfdb.instrument.impl.ScoreImpl#getD <em>D</em>}</li>
  * </ul>
  * </p>
  * 
@@ -128,7 +128,7 @@ public class ScoreImpl extends EObjectImpl implements Score {
      */
     @Override
     protected EClass eStaticClass() {
-        return AddressbookPackage.Literals.SCORE;
+        return InstrumentPackage.Literals.SCORE;
     }
 
     /**
@@ -150,7 +150,7 @@ public class ScoreImpl extends EObjectImpl implements Score {
         i = newI;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    AddressbookPackage.SCORE__I, oldI, i));
+                    InstrumentPackage.SCORE__I, oldI, i));
     }
 
     /**
@@ -172,7 +172,7 @@ public class ScoreImpl extends EObjectImpl implements Score {
         l = newL;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    AddressbookPackage.SCORE__L, oldL, l));
+                    InstrumentPackage.SCORE__L, oldL, l));
     }
 
     /**
@@ -194,7 +194,7 @@ public class ScoreImpl extends EObjectImpl implements Score {
         f = newF;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    AddressbookPackage.SCORE__F, oldF, f));
+                    InstrumentPackage.SCORE__F, oldF, f));
     }
 
     /**
@@ -216,7 +216,7 @@ public class ScoreImpl extends EObjectImpl implements Score {
         d = newD;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET,
-                    AddressbookPackage.SCORE__D, oldD, d));
+                    InstrumentPackage.SCORE__D, oldD, d));
     }
 
     /**
@@ -227,13 +227,13 @@ public class ScoreImpl extends EObjectImpl implements Score {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case AddressbookPackage.SCORE__I:
+        case InstrumentPackage.SCORE__I:
             return getI();
-        case AddressbookPackage.SCORE__L:
+        case InstrumentPackage.SCORE__L:
             return getL();
-        case AddressbookPackage.SCORE__F:
+        case InstrumentPackage.SCORE__F:
             return getF();
-        case AddressbookPackage.SCORE__D:
+        case InstrumentPackage.SCORE__D:
             return getD();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -247,16 +247,16 @@ public class ScoreImpl extends EObjectImpl implements Score {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case AddressbookPackage.SCORE__I:
+        case InstrumentPackage.SCORE__I:
             setI((Integer) newValue);
             return;
-        case AddressbookPackage.SCORE__L:
+        case InstrumentPackage.SCORE__L:
             setL((Long) newValue);
             return;
-        case AddressbookPackage.SCORE__F:
+        case InstrumentPackage.SCORE__F:
             setF((Float) newValue);
             return;
-        case AddressbookPackage.SCORE__D:
+        case InstrumentPackage.SCORE__D:
             setD((Double) newValue);
             return;
         }
@@ -271,16 +271,16 @@ public class ScoreImpl extends EObjectImpl implements Score {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case AddressbookPackage.SCORE__I:
+        case InstrumentPackage.SCORE__I:
             setI(I_EDEFAULT);
             return;
-        case AddressbookPackage.SCORE__L:
+        case InstrumentPackage.SCORE__L:
             setL(L_EDEFAULT);
             return;
-        case AddressbookPackage.SCORE__F:
+        case InstrumentPackage.SCORE__F:
             setF(F_EDEFAULT);
             return;
-        case AddressbookPackage.SCORE__D:
+        case InstrumentPackage.SCORE__D:
             setD(D_EDEFAULT);
             return;
         }
@@ -295,13 +295,13 @@ public class ScoreImpl extends EObjectImpl implements Score {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case AddressbookPackage.SCORE__I:
+        case InstrumentPackage.SCORE__I:
             return i != I_EDEFAULT;
-        case AddressbookPackage.SCORE__L:
+        case InstrumentPackage.SCORE__L:
             return l != L_EDEFAULT;
-        case AddressbookPackage.SCORE__F:
+        case InstrumentPackage.SCORE__F:
             return f != F_EDEFAULT;
-        case AddressbookPackage.SCORE__D:
+        case InstrumentPackage.SCORE__D:
             return d != D_EDEFAULT;
         }
         return super.eIsSet(featureID);

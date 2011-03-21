@@ -37,24 +37,24 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
-import org.example.emfdb.addressbook.AddressBook;
-import org.example.emfdb.addressbook.AddressbookFactory;
-import org.example.emfdb.addressbook.AddressbookPackage;
-import org.example.emfdb.addressbook.Person;
 import org.example.emfdb.beans.Car;
 import org.example.emfdb.beans.Truck;
+import org.example.emfdb.instrument.Instrument;
+import org.example.emfdb.instrument.InstrumentFactory;
+import org.example.emfdb.instrument.InstrumentPackage;
+import org.example.emfdb.instrument.Portfolio;
 
 public class View extends ViewPart {
     public static final String ID = "org.example.emfdb.view";
 
-    private final AddressBook ab = AddressbookFactory.eINSTANCE
-            .createAddressBook();
+    private final Portfolio portfolio = InstrumentFactory.eINSTANCE
+            .createPortfolio();
 
     private TableViewer viewer;
     private ObservableListContentProvider obListContentProvider;
     private boolean usingSwtVirtual = false;
     private Composite parent = null;
-    private final TemperatureSource[] providers = new TemperatureSource[10];
+    private final PriceSource[] providers = new PriceSource[10];
 
     /**
      * This is a callback that will allow us to create the viewer and initialize
@@ -75,7 +75,7 @@ public class View extends ViewPart {
                         this.setChecked(usingSwtVirtual);
 
                         disposeViewer(viewer);
-                        ab.getPeople().clear();
+                        portfolio.getInstruments().clear();
                         obListContentProvider = new ObservableListContentProvider();
                         viewer = initViewer();
                         viewer.getControl().setVisible(true);
@@ -86,28 +86,41 @@ public class View extends ViewPart {
                 .add(new Action("Clear List") {
                     @Override
                     public void run() {
-                        ab.getPeople().clear();
+                        portfolio.getInstruments().clear();
                     }
                 });
         this.getViewSite().getActionBars().getMenuManager()
                 .add(new Action("Create EMF Columns") {
                     @Override
                     public void run() {
-                        createEMFColumns(viewer,
-                                Utils.createEMFObservableMapsWithIntermediate(obListContentProvider.getKnownElements()));
+                        createEMFColumns(
+                                viewer,
+                                Utils.createEMFObservableMaps(obListContentProvider
+                                        .getKnownElements()));
+                    }
+                });
+        this.getViewSite().getActionBars().getMenuManager()
+                .add(new Action("Create EMF Columns w/ Intermediate") {
+                    @Override
+                    public void run() {
+                        createEMFColumns(
+                                viewer,
+                                Utils.createEMFObservableMapsWithIntermediate(obListContentProvider
+                                        .getKnownElements()));
                     }
                 });
         this.getViewSite().getActionBars().getMenuManager()
                 .add(new Action("Create EMF Columns w/o Leaf Listening") {
                     @Override
                     public void run() {
-                        createEMFColumns(viewer, 
-                                Utils.createEMFObservableMapsWithoutLeafListening(obListContentProvider.getKnownElements()));
+                        createEMFColumns(
+                                viewer,
+                                Utils.createEMFObservableMapsWithoutLeafListening(obListContentProvider
+                                        .getKnownElements()));
                     }
                 });
         this.getViewSite().getActionBars().getMenuManager()
-                .add(new Action("" +
-                		"Bean Columns") {
+                .add(new Action("" + "Bean Columns") {
                     @Override
                     public void run() {
                         createJavaBeanColumns(viewer,
@@ -115,43 +128,22 @@ public class View extends ViewPart {
                     }
                 });
         for (final int count : new int[] { 100, 1000, 10000 }) {
-            this.getViewSite()
-                    .getActionBars()
-                    .getMenuManager()
-                    .add(new Action(String
-                            .format("%d EObjects Non-null", count)) {
+            this.getViewSite().getActionBars().getMenuManager()
+                    .add(new Action(String.format("%d Instruments", count)) {
                         @Override
                         public void run() {
                             viewer.setInput(EMFProperties
-                                    .list(AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE)
-                                    .observe(ab));
+                                    .list(InstrumentPackage.Literals.PORTFOLIO__INSTRUMENTS)
+                                    .observe(portfolio));
                             Date start = new Date();
-                            ab.getPeople().addAll(Utils.createPeople(count, true));
+                            portfolio.getInstruments().addAll(
+                                    Utils.createInstruments(count));
                             for (TableColumn c : viewer.getTable().getColumns()) {
                                 c.pack();
                             }
                             Date end = new Date();
-                            System.out.printf("Bound in %d milliseconds.\n", end.getTime() - start.getTime());
-                        }
-                    });
-            this.getViewSite()
-                    .getActionBars()
-                    .getMenuManager()
-                    .add(new Action(String.format("%d EObjects Null numbers",
-                            count)) {
-                        @Override
-                        public void run() {
-                            viewer.setInput(EMFProperties
-                                    .list(AddressbookPackage.Literals.ADDRESS_BOOK__PEOPLE)
-                                    .observe(ab));
-                            Date start = new Date();
-                            ab.getPeople().addAll(
-                                    Utils.createPeople(count, false));
-                            for (TableColumn c : viewer.getTable().getColumns()) {
-                                c.pack();
-                            }
-                            Date end = new Date();
-                            System.out.printf("Bound in %d milliseconds.\n", end.getTime() - start.getTime());
+                            System.out.printf("Bound in %d milliseconds.\n",
+                                    end.getTime() - start.getTime());
                         }
                     });
             this.getViewSite().getActionBars().getMenuManager()
@@ -167,44 +159,66 @@ public class View extends ViewPart {
         }
 
         this.getViewSite().getActionBars().getMenuManager()
-                .add(new Action("Bind Temps") {
+                .add(new Action("Bind Prices") {
                     @Override
                     public void run() {
                         for (int i = 0; i < providers.length; i++) {
-                            providers[i] = new TemperatureSource(i + 1);
+                            providers[i] = new PriceSource(i + 1);
                         }
-                        for (final Person p : ab.getPeople()) {
+                        for (final Instrument inst : portfolio.getInstruments()) {
                             int index = (int) (Math.random() * providers.length);
                             providers[index]
                                     .addPropertyChangeListener(new PropertyChangeListener() {
                                         public void propertyChange(
                                                 PropertyChangeEvent evt) {
-                                            p.setTemperature(((Double) evt
+                                            double newPrice = ((Double) evt
                                                     .getNewValue())
-                                                    .doubleValue());
+                                                    .doubleValue();
+                                            inst.setGreeks(InstrumentFactory.eINSTANCE
+                                                    .createGreeks(newPrice));
                                         }
                                     });
                         }
                     }
                 });
         this.getViewSite().getActionBars().getMenuManager()
-                .add(new Action("Auto Update Temps") {
+                .add(new Action("Start Auto Update") {
                     @Override
                     public void run() {
                         for (int i = 0; i < providers.length; i++) {
-                            providers[i].start();
+                            providers[i].startAutoUpdate();
                         }
                     }
                 });
         this.getViewSite().getActionBars().getMenuManager()
-                .add(new Action("Auto Update Temps") {
+                .add(new Action("Stop Auto Update") {
                     @Override
                     public void run() {
                         for (int i = 0; i < providers.length; i++) {
-                            providers[i].start();
+                            providers[i].stopAutoUpdate();
                         }
                     }
                 });
+        for (int i = 0; i < providers.length; i++) {
+            final int providerIndex = i;
+            this.getViewSite().getActionBars().getMenuManager()
+                    .add(new Action("Single Update Source " + i) {
+                        @Override
+                        public void run() {
+                            if (providers[providerIndex] == null) {
+                                throw new RuntimeException(
+                                        "Call Bind Prices first!");
+                            }
+
+                            Date start = new Date();
+                            providers[providerIndex].tweakPrice();
+                            Date end = new Date();
+                            System.out.printf("Bound in %d milliseconds.\n",
+                                    end.getTime() - start.getTime());
+                        }
+                    });
+
+        }
     }
 
     /**
@@ -338,12 +352,13 @@ public class View extends ViewPart {
 
     }
 
-    private void createEMFColumns(final TableViewer viewer, IObservableMap[] maps) {
+    private void createEMFColumns(final TableViewer viewer,
+            IObservableMap[] maps) {
         clearColumns(viewer);
 
         TableViewerColumn tvc = new TableViewerColumn(viewer, SWT.LEFT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[0]));
-        tvc.getColumn().setText("First Name");
+        tvc.getColumn().setText("ID");
         tvc.getColumn().addSelectionListener(
                 new GenericPropertyColumnSorter(viewer, maps[0]));
         tvc.setEditingSupport(new MapEditingSupport(viewer, maps[0]));
@@ -351,7 +366,7 @@ public class View extends ViewPart {
 
         tvc = new TableViewerColumn(viewer, SWT.LEFT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[1]));
-        tvc.getColumn().setText("Last Name");
+        tvc.getColumn().setText("Symbol");
         tvc.getColumn().addSelectionListener(
                 new GenericPropertyColumnSorter(viewer, maps[1]));
         tvc.setEditingSupport(new MapEditingSupport(viewer, maps[1]));
@@ -359,52 +374,32 @@ public class View extends ViewPart {
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[2]));
-        tvc.getColumn().setText("Temp");
+        tvc.getColumn().setText("Price");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[3]));
-        tvc.getColumn().setText("A1");
+        tvc.getColumn().setText("Delta");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[4]));
-        tvc.getColumn().setText("A2");
+        tvc.getColumn().setText("Gamma");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[5]));
-        tvc.getColumn().setText("A3");
+        tvc.getColumn().setText("Vega");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[6]));
-        tvc.getColumn().setText("A4");
+        tvc.getColumn().setText("Theta");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[7]));
-        tvc.getColumn().setText("A5");
-        tvc.getColumn().pack();
-
-        tvc = new TableViewerColumn(viewer, SWT.RIGHT);
-        tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[8]));
-        tvc.getColumn().setText("A6");
-        tvc.getColumn().pack();
-
-        tvc = new TableViewerColumn(viewer, SWT.RIGHT);
-        tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[9]));
-        tvc.getColumn().setText("A7");
-        tvc.getColumn().pack();
-
-        tvc = new TableViewerColumn(viewer, SWT.RIGHT);
-        tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[10]));
-        tvc.getColumn().setText("A8");
-        tvc.getColumn().pack();
-
-        tvc = new TableViewerColumn(viewer, SWT.RIGHT);
-        tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[11]));
-        tvc.getColumn().setText("A9");
+        tvc.getColumn().setText("Rho");
         tvc.getColumn().pack();
     }
 
@@ -462,12 +457,13 @@ public class View extends ViewPart {
         return cars;
     }
 
-    public class TemperatureSource extends Thread {
+    public class PriceSource extends Thread {
         private final PropertyChangeSupport pcs;
         private final int frequency;
-        private double temperature;
+        private double price;
+        private volatile boolean shouldFire = true;
 
-        public TemperatureSource(int frequency) {
+        public PriceSource(int frequency) {
             this.pcs = new PropertyChangeSupport(this);
             this.frequency = frequency;
         }
@@ -475,7 +471,8 @@ public class View extends ViewPart {
         @Override
         public void run() {
             while (true) {
-                tweakTemp();
+                if (shouldFire)
+                    tweakPrice();
                 try {
                     Thread.sleep((long) (Math.random() * 200.0d * frequency + 50.0d));
                 } catch (InterruptedException e) {
@@ -484,19 +481,29 @@ public class View extends ViewPart {
             }
         }
 
-        public void tweakTemp() {
-            this.setTemperature(Math.random() * 100.0d);
+        public void startAutoUpdate() {
+            this.shouldFire = true;
+            if (!this.isAlive())
+                this.start();
         }
 
-        public double getTemperature() {
-            return temperature;
+        public void stopAutoUpdate() {
+            this.shouldFire = false;
         }
 
-        public void setTemperature(double temperature) {
-            double oldValue = this.temperature;
-            this.temperature = temperature;
-            this.pcs.firePropertyChange("temperature",
-                    Double.valueOf(oldValue), Double.valueOf(temperature));
+        public void tweakPrice() {
+            this.setPrice(Math.random() * 100.0d);
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double temperature) {
+            double oldValue = this.price;
+            this.price = temperature;
+            this.pcs.firePropertyChange("price", Double.valueOf(oldValue),
+                    Double.valueOf(temperature));
         }
 
         public void addPropertyChangeListener(PropertyChangeListener listener) {

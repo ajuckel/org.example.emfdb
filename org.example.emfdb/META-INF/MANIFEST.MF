@@ -17,6 +17,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.example.emfdb,
- org.example.emfdb.addressbook,
- org.example.emfdb.addressbook.impl,
- org.example.emfdb.addressbook.util
+ org.example.emfdb.instrument,
+ org.example.emfdb.instrument.impl,
+ org.example.emfdb.instrument.util

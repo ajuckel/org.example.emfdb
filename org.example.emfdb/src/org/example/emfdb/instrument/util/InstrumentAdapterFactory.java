@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.example.emfdb.addressbook.util;
+package org.example.emfdb.instrument.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -13,23 +13,23 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.example.emfdb.addressbook.*;
+import org.example.emfdb.instrument.*;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
  * an adapter <code>createXXX</code> method for each class of the model. <!--
  * end-user-doc -->
  * 
- * @see org.example.emfdb.addressbook.AddressbookPackage
+ * @see org.example.emfdb.instrument.InstrumentPackage
  * @generated
  */
-public class AddressbookAdapterFactory extends AdapterFactoryImpl {
+public class InstrumentAdapterFactory extends AdapterFactoryImpl {
     /**
      * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
      */
-    protected static AddressbookPackage modelPackage;
+    protected static InstrumentPackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!--
@@ -37,9 +37,9 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
      * 
      * @generated
      */
-    public AddressbookAdapterFactory() {
+    public InstrumentAdapterFactory() {
         if (modelPackage == null) {
-            modelPackage = AddressbookPackage.eINSTANCE;
+            modelPackage = InstrumentPackage.eINSTANCE;
         }
     }
 
@@ -69,20 +69,15 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
      * 
      * @generated
      */
-    protected AddressbookSwitch<Adapter> modelSwitch = new AddressbookSwitch<Adapter>() {
+    protected InstrumentSwitch<Adapter> modelSwitch = new InstrumentSwitch<Adapter>() {
         @Override
-        public Adapter casePerson(Person object) {
-            return createPersonAdapter();
+        public Adapter caseInstrument(Instrument object) {
+            return createInstrumentAdapter();
         }
 
         @Override
-        public Adapter casePhoneNumber(PhoneNumber object) {
-            return createPhoneNumberAdapter();
-        }
-
-        @Override
-        public Adapter caseAddressBook(AddressBook object) {
-            return createAddressBookAdapter();
+        public Adapter casePortfolio(Portfolio object) {
+            return createPortfolioAdapter();
         }
 
         @Override
@@ -91,8 +86,8 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseGarbage(Garbage object) {
-            return createGarbageAdapter();
+        public Adapter caseGreeks(Greeks object) {
+            return createGreeksAdapter();
         }
 
         @Override
@@ -117,58 +112,43 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '
-     * {@link org.example.emfdb.addressbook.Person <em>Person</em>}'. <!--
-     * begin-user-doc --> This default implementation returns null so that we
-     * can easily ignore cases; it's useful to ignore a case when inheritance
-     * will catch all the cases anyway. <!-- end-user-doc -->
-     * 
-     * @return the new adapter.
-     * @see org.example.emfdb.addressbook.Person
-     * @generated
-     */
-    public Adapter createPersonAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '
-     * {@link org.example.emfdb.addressbook.PhoneNumber <em>Phone Number</em>}'.
+     * {@link org.example.emfdb.instrument.Instrument <em>Instrument</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that
      * we can easily ignore cases; it's useful to ignore a case when inheritance
      * will catch all the cases anyway. <!-- end-user-doc -->
      * 
      * @return the new adapter.
-     * @see org.example.emfdb.addressbook.PhoneNumber
+     * @see org.example.emfdb.instrument.Instrument
      * @generated
      */
-    public Adapter createPhoneNumberAdapter() {
+    public Adapter createInstrumentAdapter() {
         return null;
     }
 
     /**
      * Creates a new adapter for an object of class '
-     * {@link org.example.emfdb.addressbook.AddressBook <em>Address Book</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that
-     * we can easily ignore cases; it's useful to ignore a case when inheritance
-     * will catch all the cases anyway. <!-- end-user-doc -->
-     * 
-     * @return the new adapter.
-     * @see org.example.emfdb.addressbook.AddressBook
-     * @generated
-     */
-    public Adapter createAddressBookAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '
-     * {@link org.example.emfdb.addressbook.Score <em>Score</em>}'. <!--
+     * {@link org.example.emfdb.instrument.Portfolio <em>Portfolio</em>}'. <!--
      * begin-user-doc --> This default implementation returns null so that we
      * can easily ignore cases; it's useful to ignore a case when inheritance
      * will catch all the cases anyway. <!-- end-user-doc -->
      * 
      * @return the new adapter.
-     * @see org.example.emfdb.addressbook.Score
+     * @see org.example.emfdb.instrument.Portfolio
+     * @generated
+     */
+    public Adapter createPortfolioAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '
+     * {@link org.example.emfdb.instrument.Score <em>Score</em>}'. <!--
+     * begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance
+     * will catch all the cases anyway. <!-- end-user-doc -->
+     * 
+     * @return the new adapter.
+     * @see org.example.emfdb.instrument.Score
      * @generated
      */
     public Adapter createScoreAdapter() {
@@ -177,16 +157,16 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '
-     * {@link org.example.emfdb.addressbook.Garbage <em>Garbage</em>}'. <!--
+     * {@link org.example.emfdb.instrument.Greeks <em>Greeks</em>}'. <!--
      * begin-user-doc --> This default implementation returns null so that we
      * can easily ignore cases; it's useful to ignore a case when inheritance
      * will catch all the cases anyway. <!-- end-user-doc -->
      * 
      * @return the new adapter.
-     * @see org.example.emfdb.addressbook.Garbage
+     * @see org.example.emfdb.instrument.Greeks
      * @generated
      */
-    public Adapter createGarbageAdapter() {
+    public Adapter createGreeksAdapter() {
         return null;
     }
 
@@ -201,4 +181,4 @@ public class AddressbookAdapterFactory extends AdapterFactoryImpl {
         return null;
     }
 
-} // AddressbookAdapterFactory
+} // InstrumentAdapterFactory

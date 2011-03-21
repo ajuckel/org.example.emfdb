@@ -4,14 +4,14 @@
  *
  * $Id$
  */
-package org.example.emfdb.addressbook.util;
+package org.example.emfdb.instrument.util;
 
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.example.emfdb.addressbook.*;
+import org.example.emfdb.instrument.*;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance
@@ -21,16 +21,16 @@ import org.example.emfdb.addressbook.*;
  * inheritance hierarchy until a non-null result is returned, which is the
  * result of the switch. <!-- end-user-doc -->
  * 
- * @see org.example.emfdb.addressbook.AddressbookPackage
+ * @see org.example.emfdb.instrument.InstrumentPackage
  * @generated
  */
-public class AddressbookSwitch<T> {
+public class InstrumentSwitch<T> {
     /**
      * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
      */
-    protected static AddressbookPackage modelPackage;
+    protected static InstrumentPackage modelPackage;
 
     /**
      * Creates an instance of the switch. <!-- begin-user-doc --> <!--
@@ -38,9 +38,9 @@ public class AddressbookSwitch<T> {
      * 
      * @generated
      */
-    public AddressbookSwitch() {
+    public InstrumentSwitch() {
         if (modelPackage == null) {
-            modelPackage = AddressbookPackage.eINSTANCE;
+            modelPackage = InstrumentPackage.eINSTANCE;
         }
     }
 
@@ -87,37 +87,30 @@ public class AddressbookSwitch<T> {
      */
     protected T doSwitch(int classifierID, EObject theEObject) {
         switch (classifierID) {
-        case AddressbookPackage.PERSON: {
-            Person person = (Person) theEObject;
-            T result = casePerson(person);
+        case InstrumentPackage.INSTRUMENT: {
+            Instrument instrument = (Instrument) theEObject;
+            T result = caseInstrument(instrument);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
-        case AddressbookPackage.PHONE_NUMBER: {
-            PhoneNumber phoneNumber = (PhoneNumber) theEObject;
-            T result = casePhoneNumber(phoneNumber);
+        case InstrumentPackage.PORTFOLIO: {
+            Portfolio portfolio = (Portfolio) theEObject;
+            T result = casePortfolio(portfolio);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
-        case AddressbookPackage.ADDRESS_BOOK: {
-            AddressBook addressBook = (AddressBook) theEObject;
-            T result = caseAddressBook(addressBook);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case AddressbookPackage.SCORE: {
+        case InstrumentPackage.SCORE: {
             Score score = (Score) theEObject;
             T result = caseScore(score);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
-        case AddressbookPackage.GARBAGE: {
-            Garbage garbage = (Garbage) theEObject;
-            T result = caseGarbage(garbage);
+        case InstrumentPackage.GREEKS: {
+            Greeks greeks = (Greeks) theEObject;
+            T result = caseGreeks(greeks);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -129,52 +122,35 @@ public class AddressbookSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '
-     * <em>Person</em>'. <!-- begin-user-doc --> This implementation returns
+     * <em>Instrument</em>'. <!-- begin-user-doc --> This implementation returns
      * null; returning a non-null result will terminate the switch. <!--
      * end-user-doc -->
      * 
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '
-     *         <em>Person</em>'.
+     *         <em>Instrument</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T casePerson(Person object) {
+    public T caseInstrument(Instrument object) {
         return null;
     }
 
     /**
      * Returns the result of interpreting the object as an instance of '
-     * <em>Phone Number</em>'. <!-- begin-user-doc --> This implementation
-     * returns null; returning a non-null result will terminate the switch. <!--
+     * <em>Portfolio</em>'. <!-- begin-user-doc --> This implementation returns
+     * null; returning a non-null result will terminate the switch. <!--
      * end-user-doc -->
      * 
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '
-     *         <em>Phone Number</em>'.
+     *         <em>Portfolio</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T casePhoneNumber(PhoneNumber object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '
-     * <em>Address Book</em>'. <!-- begin-user-doc --> This implementation
-     * returns null; returning a non-null result will terminate the switch. <!--
-     * end-user-doc -->
-     * 
-     * @param object
-     *            the target of the switch.
-     * @return the result of interpreting the object as an instance of '
-     *         <em>Address Book</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseAddressBook(AddressBook object) {
+    public T casePortfolio(Portfolio object) {
         return null;
     }
 
@@ -197,18 +173,18 @@ public class AddressbookSwitch<T> {
 
     /**
      * Returns the result of interpreting the object as an instance of '
-     * <em>Garbage</em>'. <!-- begin-user-doc --> This implementation returns
+     * <em>Greeks</em>'. <!-- begin-user-doc --> This implementation returns
      * null; returning a non-null result will terminate the switch. <!--
      * end-user-doc -->
      * 
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '
-     *         <em>Garbage</em>'.
+     *         <em>Greeks</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseGarbage(Garbage object) {
+    public T caseGreeks(Greeks object) {
         return null;
     }
 
@@ -229,4 +205,4 @@ public class AddressbookSwitch<T> {
         return null;
     }
 
-} // AddressbookSwitch
+} // InstrumentSwitch
