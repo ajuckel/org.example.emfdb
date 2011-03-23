@@ -9,11 +9,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="scores" upperBound="-1"
         eType="#//Score"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="greeks" eType="#//Greeks"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="underPrice" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Portfolio">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instruments" upperBound="-1"
         eType="#//Instrument" containment="true"/>
-¯  </eClassifiers>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Score">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="i" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="l" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long"/>

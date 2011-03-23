@@ -11,10 +11,10 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
-import org.example.emfdb.instrument.Portfolio;
+import org.example.emfdb.instrument.Instrument;
 import org.example.emfdb.instrument.InstrumentFactory;
 import org.example.emfdb.instrument.InstrumentPackage;
-import org.example.emfdb.instrument.Instrument;
+import org.example.emfdb.instrument.Portfolio;
 import org.example.emfdb.instrument.impl.PortfolioImpl;
 
 public class DecoratedTestView extends ViewPart {

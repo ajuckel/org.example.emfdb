@@ -7,12 +7,11 @@
 package org.example.emfdb.instrument.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.notify.impl.NotificationChainImpl;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.example.emfdb.instrument.Greeks;
 import org.example.emfdb.instrument.InstrumentPackage;
 
@@ -311,6 +310,30 @@ public class GreeksImpl extends EObjectImpl implements Greeks {
     }
 
     /**
+     * @generated NOT
+     */
+    public void setAllValues(double value) {
+        // Simplified because all values are equal to price.
+        double oldValue = this.price;
+        if (eNotificationRequired()) {
+            NotificationChain chain = new NotificationChainImpl();
+            chain.add(new ENotificationImpl(this, Notification.SET,
+                    InstrumentPackage.GREEKS__PRICE, oldValue, value));
+            chain.add(new ENotificationImpl(this, Notification.SET,
+                    InstrumentPackage.GREEKS__DELTA, oldValue, value));
+            chain.add(new ENotificationImpl(this, Notification.SET,
+                    InstrumentPackage.GREEKS__GAMMA, oldValue, value));
+            chain.add(new ENotificationImpl(this, Notification.SET,
+                    InstrumentPackage.GREEKS__VEGA, oldValue, value));
+            chain.add(new ENotificationImpl(this, Notification.SET,
+                    InstrumentPackage.GREEKS__THETA, oldValue, value));
+            chain.add(new ENotificationImpl(this, Notification.SET,
+                    InstrumentPackage.GREEKS__RHO, oldValue, value));
+            chain.dispatch();
+        }
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
@@ -444,5 +467,4 @@ public class GreeksImpl extends EObjectImpl implements Greeks {
         result.append(')');
         return result.toString();
     }
-
 } // GreeksImpl

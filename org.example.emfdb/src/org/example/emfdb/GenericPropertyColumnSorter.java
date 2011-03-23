@@ -9,7 +9,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Table;
-import org.example.emfdb.GenericValueFetcher;
 
 public class GenericPropertyColumnSorter extends ViewerComparator implements
         SelectionListener {

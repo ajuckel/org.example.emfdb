@@ -52,9 +52,10 @@ public class View extends ViewPart {
 
     private TableViewer viewer;
     private ObservableListContentProvider obListContentProvider;
-    private boolean usingSwtVirtual = false;
+    private boolean usingSwtVirtual = true;
     private Composite parent = null;
     private final PriceSource[] providers = new PriceSource[10];
+    private final int[] providerAssignments = new int[providers.length];
 
     /**
      * This is a callback that will allow us to create the viewer and initialize
@@ -65,10 +66,12 @@ public class View extends ViewPart {
 
         obListContentProvider = new ObservableListContentProvider();
         viewer = initViewer();
+        for (int i = 0; i < providers.length; i++) {
+            providers[i] = new PriceSource(i + 1);
+        }
 
         this.getViewSite().getActionBars().getMenuManager()
                 .add(new Action("Toggle Virtual", IAction.AS_CHECK_BOX) {
-
                     @Override
                     public void run() {
                         usingSwtVirtual = !usingSwtVirtual;
@@ -80,6 +83,11 @@ public class View extends ViewPart {
                         viewer = initViewer();
                         viewer.getControl().setVisible(true);
                         viewer.getControl().update();
+                    }
+
+                    @Override
+                    public boolean isChecked() {
+                        return usingSwtVirtual;
                     }
                 });
         this.getViewSite().getActionBars().getMenuManager()
@@ -93,9 +101,8 @@ public class View extends ViewPart {
                 .add(new Action("Create EMF Columns") {
                     @Override
                     public void run() {
-                        createEMFColumns(
-                                viewer,
-                                Utils.createEMFObservableMaps(obListContentProvider
+                        createEMFColumns(viewer, Utils
+                                .createEMFObservableMaps(obListContentProvider
                                         .getKnownElements()));
                     }
                 });
@@ -159,14 +166,28 @@ public class View extends ViewPart {
         }
 
         this.getViewSite().getActionBars().getMenuManager()
-                .add(new Action("Bind Prices") {
+                .add(new Action("Bind Under Price") {
+                    public void run() {
+                        for (final Instrument inst : portfolio.getInstruments()) {
+                            providers[0]
+                                    .addPropertyChangeListener(new PropertyChangeListener() {
+                                        public void propertyChange(
+                                                PropertyChangeEvent evt) {
+                                            inst.setUnderPrice(((Double) evt
+                                                    .getNewValue())
+                                                    .doubleValue());
+                                        }
+                                    });
+                        }
+                    }
+                });
+        this.getViewSite().getActionBars().getMenuManager()
+                .add(new Action("Bind Prices to Greeks Update") {
                     @Override
                     public void run() {
-                        for (int i = 0; i < providers.length; i++) {
-                            providers[i] = new PriceSource(i + 1);
-                        }
                         for (final Instrument inst : portfolio.getInstruments()) {
                             int index = (int) (Math.random() * providers.length);
+                            providerAssignments[index]++;
                             providers[index]
                                     .addPropertyChangeListener(new PropertyChangeListener() {
                                         public void propertyChange(
@@ -176,6 +197,27 @@ public class View extends ViewPart {
                                                     .doubleValue();
                                             inst.setGreeks(InstrumentFactory.eINSTANCE
                                                     .createGreeks(newPrice));
+                                        }
+                                    });
+                        }
+                    }
+                });
+        this.getViewSite().getActionBars().getMenuManager()
+                .add(new Action("Bind Prices to Greeks Property Updates") {
+                    @Override
+                    public void run() {
+                        for (final Instrument inst : portfolio.getInstruments()) {
+                            int index = (int) (Math.random() * providers.length);
+                            providerAssignments[index]++;
+                            providers[index]
+                                    .addPropertyChangeListener(new PropertyChangeListener() {
+                                        public void propertyChange(
+                                                PropertyChangeEvent evt) {
+                                            double newPrice = ((Double) evt
+                                                    .getNewValue())
+                                                    .doubleValue();
+                                            inst.getGreeks().setAllValues(
+                                                    newPrice);
                                         }
                                     });
                         }
@@ -213,7 +255,9 @@ public class View extends ViewPart {
                             Date start = new Date();
                             providers[providerIndex].tweakPrice();
                             Date end = new Date();
-                            System.out.printf("Bound in %d milliseconds.\n",
+                            System.out.printf(
+                                    "Bound %d elements in %d milliseconds.\n",
+                                    providerAssignments[providerIndex],
                                     end.getTime() - start.getTime());
                         }
                     });
@@ -374,31 +418,39 @@ public class View extends ViewPart {
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[2]));
-        tvc.getColumn().setText("Price");
+        tvc.getColumn().setText("Under Price");
+        tvc.getColumn().addSelectionListener(
+                new GenericPropertyColumnSorter(viewer, maps[2]));
+        tvc.setEditingSupport(new MapEditingSupport(viewer, maps[1]));
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[3]));
-        tvc.getColumn().setText("Delta");
+        tvc.getColumn().setText("Price");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[4]));
-        tvc.getColumn().setText("Gamma");
+        tvc.getColumn().setText("Delta");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[5]));
-        tvc.getColumn().setText("Vega");
+        tvc.getColumn().setText("Gamma");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[6]));
-        tvc.getColumn().setText("Theta");
+        tvc.getColumn().setText("Vega");
         tvc.getColumn().pack();
 
         tvc = new TableViewerColumn(viewer, SWT.RIGHT);
         tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[7]));
+        tvc.getColumn().setText("Theta");
+        tvc.getColumn().pack();
+
+        tvc = new TableViewerColumn(viewer, SWT.RIGHT);
+        tvc.setLabelProvider(new ObservableMapCellLabelProvider(maps[8]));
         tvc.getColumn().setText("Rho");
         tvc.getColumn().pack();
     }

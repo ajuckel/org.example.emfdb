@@ -16,9 +16,9 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.widgets.Display;
+import org.example.emfdb.instrument.Instrument;
 import org.example.emfdb.instrument.InstrumentFactory;
 import org.example.emfdb.instrument.InstrumentPackage;
-import org.example.emfdb.instrument.Instrument;
 import org.example.emfdb.instrument.Portfolio;
 
 public class PerfTest implements IApplication {

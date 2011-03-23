@@ -106,13 +106,22 @@ public interface InstrumentPackage extends EPackage {
     int INSTRUMENT__GREEKS = 3;
 
     /**
+     * The feature id for the '<em><b>Under Price</b></em>' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int INSTRUMENT__UNDER_PRICE = 4;
+
+    /**
      * The number of structural features of the '<em>Instrument</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
      * @ordered
      */
-    int INSTRUMENT_FEATURE_COUNT = 4;
+    int INSTRUMENT_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '
@@ -331,6 +340,18 @@ public interface InstrumentPackage extends EPackage {
      * @generated
      */
     EReference getInstrument_Greeks();
+
+    /**
+     * Returns the meta object for the attribute '
+     * {@link org.example.emfdb.instrument.Instrument#getUnderPrice
+     * <em>Under Price</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the attribute '<em>Under Price</em>'.
+     * @see org.example.emfdb.instrument.Instrument#getUnderPrice()
+     * @see #getInstrument()
+     * @generated
+     */
+    EAttribute getInstrument_UnderPrice();
 
     /**
      * Returns the meta object for class '
@@ -564,6 +585,15 @@ public interface InstrumentPackage extends EPackage {
          * @generated
          */
         EReference INSTRUMENT__GREEKS = eINSTANCE.getInstrument_Greeks();
+
+        /**
+         * The meta object literal for the '<em><b>Under Price</b></em>'
+         * attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @generated
+         */
+        EAttribute INSTRUMENT__UNDER_PRICE = eINSTANCE
+                .getInstrument_UnderPrice();
 
         /**
          * The meta object literal for the '

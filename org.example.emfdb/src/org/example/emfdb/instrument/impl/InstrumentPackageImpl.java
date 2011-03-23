@@ -10,11 +10,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.example.emfdb.instrument.Greeks;
 import org.example.emfdb.instrument.Instrument;
 import org.example.emfdb.instrument.InstrumentFactory;
@@ -179,6 +176,15 @@ public class InstrumentPackageImpl extends EPackageImpl implements
      * 
      * @generated
      */
+    public EAttribute getInstrument_UnderPrice() {
+        return (EAttribute) instrumentEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
     public EClass getPortfolio() {
         return portfolioEClass;
     }
@@ -334,6 +340,7 @@ public class InstrumentPackageImpl extends EPackageImpl implements
         createEAttribute(instrumentEClass, INSTRUMENT__SYMBOL);
         createEReference(instrumentEClass, INSTRUMENT__SCORES);
         createEReference(instrumentEClass, INSTRUMENT__GREEKS);
+        createEAttribute(instrumentEClass, INSTRUMENT__UNDER_PRICE);
 
         portfolioEClass = createEClass(PORTFOLIO);
         createEReference(portfolioEClass, PORTFOLIO__INSTRUMENTS);
@@ -406,6 +413,10 @@ public class InstrumentPackageImpl extends EPackageImpl implements
                 "greeks", null, 0, 1, Instrument.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getInstrument_UnderPrice(),
+                theXMLTypePackage.getDouble(), "underPrice", null, 0, 1,
+                Instrument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(portfolioEClass, Portfolio.class, "Portfolio", !IS_ABSTRACT,
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

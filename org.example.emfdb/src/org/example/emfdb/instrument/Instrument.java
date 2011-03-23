@@ -7,7 +7,6 @@
 package org.example.emfdb.instrument;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -24,6 +23,8 @@ import org.eclipse.emf.ecore.EObject;
  * </li>
  * <li>{@link org.example.emfdb.instrument.Instrument#getGreeks <em>Greeks</em>}
  * </li>
+ * <li>{@link org.example.emfdb.instrument.Instrument#getUnderPrice <em>Under
+ * Price</em>}</li>
  * </ul>
  * </p>
  * 
@@ -135,5 +136,35 @@ public interface Instrument extends EObject {
      * @generated
      */
     void setGreeks(Greeks value);
+
+    /**
+     * Returns the value of the '<em><b>Under Price</b></em>' attribute. <!--
+     * begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Under Price</em>' attribute isn't clear, there
+     * really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * 
+     * @return the value of the '<em>Under Price</em>' attribute.
+     * @see #setUnderPrice(double)
+     * @see org.example.emfdb.instrument.InstrumentPackage#getInstrument_UnderPrice()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
+     * @generated
+     */
+    double getUnderPrice();
+
+    /**
+     * Sets the value of the '
+     * {@link org.example.emfdb.instrument.Instrument#getUnderPrice
+     * <em>Under Price</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @param value
+     *            the new value of the '<em>Under Price</em>' attribute.
+     * @see #getUnderPrice()
+     * @generated
+     */
+    void setUnderPrice(double value);
 
 } // Instrument

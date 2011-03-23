@@ -10,8 +10,11 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
-import org.example.emfdb.instrument.*;
+import org.example.emfdb.instrument.Greeks;
+import org.example.emfdb.instrument.Instrument;
+import org.example.emfdb.instrument.InstrumentPackage;
+import org.example.emfdb.instrument.Portfolio;
+import org.example.emfdb.instrument.Score;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance

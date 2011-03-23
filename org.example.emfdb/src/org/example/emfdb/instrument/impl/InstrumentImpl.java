@@ -9,17 +9,12 @@ package org.example.emfdb.instrument.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import org.example.emfdb.instrument.Greeks;
 import org.example.emfdb.instrument.Instrument;
 import org.example.emfdb.instrument.InstrumentPackage;
@@ -39,6 +34,8 @@ import org.example.emfdb.instrument.Score;
  * Scores</em>}</li>
  * <li>{@link org.example.emfdb.instrument.impl.InstrumentImpl#getGreeks <em>
  * Greeks</em>}</li>
+ * <li>{@link org.example.emfdb.instrument.impl.InstrumentImpl#getUnderPrice
+ * <em>Under Price</em>}</li>
  * </ul>
  * </p>
  * 
@@ -104,6 +101,26 @@ public class InstrumentImpl extends EObjectImpl implements Instrument {
      * @ordered
      */
     protected Greeks greeks;
+
+    /**
+     * The default value of the '{@link #getUnderPrice() <em>Under Price</em>}'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getUnderPrice()
+     * @generated
+     * @ordered
+     */
+    protected static final double UNDER_PRICE_EDEFAULT = 0.0;
+
+    /**
+     * The cached value of the '{@link #getUnderPrice() <em>Under Price</em>}'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getUnderPrice()
+     * @generated
+     * @ordered
+     */
+    protected double underPrice = UNDER_PRICE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -227,6 +244,29 @@ public class InstrumentImpl extends EObjectImpl implements Instrument {
      * 
      * @generated
      */
+    public double getUnderPrice() {
+        return underPrice;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public void setUnderPrice(double newUnderPrice) {
+        double oldUnderPrice = underPrice;
+        underPrice = newUnderPrice;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    InstrumentPackage.INSTRUMENT__UNDER_PRICE, oldUnderPrice,
+                    underPrice));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -240,6 +280,8 @@ public class InstrumentImpl extends EObjectImpl implements Instrument {
             if (resolve)
                 return getGreeks();
             return basicGetGreeks();
+        case InstrumentPackage.INSTRUMENT__UNDER_PRICE:
+            return getUnderPrice();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -266,6 +308,9 @@ public class InstrumentImpl extends EObjectImpl implements Instrument {
         case InstrumentPackage.INSTRUMENT__GREEKS:
             setGreeks((Greeks) newValue);
             return;
+        case InstrumentPackage.INSTRUMENT__UNDER_PRICE:
+            setUnderPrice((Double) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -290,6 +335,9 @@ public class InstrumentImpl extends EObjectImpl implements Instrument {
         case InstrumentPackage.INSTRUMENT__GREEKS:
             setGreeks((Greeks) null);
             return;
+        case InstrumentPackage.INSTRUMENT__UNDER_PRICE:
+            setUnderPrice(UNDER_PRICE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -311,6 +359,8 @@ public class InstrumentImpl extends EObjectImpl implements Instrument {
             return scores != null && !scores.isEmpty();
         case InstrumentPackage.INSTRUMENT__GREEKS:
             return greeks != null;
+        case InstrumentPackage.INSTRUMENT__UNDER_PRICE:
+            return underPrice != UNDER_PRICE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -330,6 +380,8 @@ public class InstrumentImpl extends EObjectImpl implements Instrument {
         result.append(id);
         result.append(", symbol: ");
         result.append(symbol);
+        result.append(", underPrice: ");
+        result.append(underPrice);
         result.append(')');
         return result.toString();
     }

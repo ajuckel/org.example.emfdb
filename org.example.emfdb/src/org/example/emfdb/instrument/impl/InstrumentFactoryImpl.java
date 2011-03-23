@@ -9,12 +9,14 @@ package org.example.emfdb.instrument.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.example.emfdb.instrument.*;
+import org.example.emfdb.instrument.Greeks;
+import org.example.emfdb.instrument.Instrument;
+import org.example.emfdb.instrument.InstrumentFactory;
+import org.example.emfdb.instrument.InstrumentPackage;
+import org.example.emfdb.instrument.Portfolio;
+import org.example.emfdb.instrument.Score;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--

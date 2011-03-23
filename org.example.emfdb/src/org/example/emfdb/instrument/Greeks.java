@@ -202,4 +202,11 @@ public interface Greeks extends EObject {
      */
     void setRho(double value);
 
+    /**
+     * 
+     * @param value
+     * @generated NOT
+     */
+    void setAllValues(double value);
+
 } // Greeks
